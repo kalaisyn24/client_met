@@ -43,6 +43,7 @@ import {FormsModule} from '@angular/forms';
 import { MembersComponent } from './members/members.component';
 import { AddEditFormComponent } from './members/add-edit-form/add-edit-form.component';
 import { AddMemberComponent } from './members/add-member/add-member.component';
+import { EditMemberComponent } from './members/edit-member/edit-member.component';
 
 @NgModule({
   entryComponents: [
@@ -52,6 +53,7 @@ import { AddMemberComponent } from './members/add-member/add-member.component';
     MembersComponent,
     AddEditFormComponent,
     AddMemberComponent,
+    EditMemberComponent,
   ],
   imports: [
     FlexLayoutModule,
