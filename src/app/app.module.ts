@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-//material
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -39,13 +38,20 @@ import {
   MatToolbarModule,
   MatTooltipModule,
 } from '@angular/material';
-import { GlobalTableComponent } from './components/global-table/global-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {FormsModule} from '@angular/forms';
+import { MembersComponent } from './members/members.component';
+import { AddEditFormComponent } from './members/add-edit-form/add-edit-form.component';
+import { AddMemberComponent } from './members/add-member/add-member.component';
 
 @NgModule({
+  entryComponents: [
+  ],
   declarations: [
     AppComponent,
-    GlobalTableComponent
+    MembersComponent,
+    AddEditFormComponent,
+    AddMemberComponent,
   ],
   imports: [
     FlexLayoutModule,
@@ -84,6 +90,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
