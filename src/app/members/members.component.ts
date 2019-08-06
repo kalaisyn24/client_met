@@ -12,7 +12,6 @@ import { MatDialog } from '@angular/material';
 import { MemberModel } from './member.model';
 import { HttpService } from '../http.service';
 
-import { ConfirmService } from '../services/confirm-dialog/confirm.service';
 import { MessagesService } from '../services/messages-service/messages.service';
 
 import { AddMemberComponent } from './add-member/add-member.component';
@@ -66,7 +65,6 @@ export class MembersComponent implements AfterViewInit, OnInit{
   constructor(
     private httpService: HttpService,
     public dialog: MatDialog,
-    private confirmService: ConfirmService,
     private messagesService: MessagesService,
   ) {
 
@@ -80,7 +78,9 @@ export class MembersComponent implements AfterViewInit, OnInit{
       });
   }
 
-  ngOnInit() { this.getAllRecords(); }
+  ngOnInit() {
+    this.getAllRecords();
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -88,7 +88,7 @@ export class MembersComponent implements AfterViewInit, OnInit{
 
   // ----------------- получить данные ------------------
 
-  //  This works fine when multiple queries used.
+  //  для кнопки получить все данные
   public getAllRecords(): any {
     this.httpService.getAllRecords(this.membersUrl)
       .subscribe(data => {
@@ -97,7 +97,7 @@ export class MembersComponent implements AfterViewInit, OnInit{
       });
   }
 
-  // ------------------ ADD --------------------
+  // ------------------ добавить --------------------
 
 
   public addRecord() {
@@ -105,7 +105,7 @@ export class MembersComponent implements AfterViewInit, OnInit{
   }
 
 
-  // ----------- EDIT & UPDATE --------------
+  // ----------- Редактировать --------------
 
   public editRecord(recordId) {
     this.dialog.open(this.editMemberComponent, {
@@ -120,32 +120,13 @@ export class MembersComponent implements AfterViewInit, OnInit{
   public deleteRecord(recordId) {
     const dsData = this.dataSource.data;
 
-    // For delete confirm dialog in deleteItem to match the db column name to fetch.
     const name1 = 'first_name';
     const name2 = 'last_name';
     const record = dsData.find(obj => obj[this.idColumn] === recordId);
     const name = 'Delete ' + record[name1] + ' ' + record[name2] + '?';
 
     const url = `${this.membersUrl}/${recordId}`;
-
-    // Call the confirm dialog component
-    this.confirmService.confirm(name, 'This action is final. Gone forever!').pipe(
-      switchMap(res => {if (res === true) {
-        console.log('url: ', url);
-        return this.httpService.deleteRecord(url);
-      }}))
-      .subscribe(
-        result => {
-          this.success();
-          // Refresh DataTable to remove row.
-          this.deleteRowDataTable (recordId, this.idColumn, this.paginator, this.dataSource);
-        },
-        (err: HttpErrorResponse) => {
-          console.log(err.error);
-          console.log(err.message);
-          this.messagesService.openDialog('Error', 'Delete did not happen.');
-        }
-      );
+    this.deleteRowDataTable (recordId, this.idColumn, this.paginator, this.dataSource);
   }
 
 // Remove the deleted row from the data table. Need to remove from the downloaded data first.
@@ -158,7 +139,7 @@ export class MembersComponent implements AfterViewInit, OnInit{
 
 
 
-  // ----------- SEARCH BY COUNTRY ------------------
+  // ----------- поиск по странам ------------------
 
   public searchCountries(country): any {
 
@@ -172,36 +153,27 @@ export class MembersComponent implements AfterViewInit, OnInit{
   }
 
 
-  //  ---- LAST NAME INCREMENTAL QUERY IN CONSTRUCTOR -------
-
 
 
   // -------------- SELECT BOX ------------------
 
 
-  // Called each time a checkbox is checked in the mat table.
   public selectMember(selectedMember) {
-    // push the id's into an array then call it with the button.
     return this.idArray.push(selectedMember);
   }
-  //   |
-  //   |
-  //   |
-  //   V
-
-  // Called by the Show Selected button.
   public getAllSelected() {
     this.memberArray = [];
     const tempArray = [];
     const ds = this.dataSource.data;
     const property = 'id';
 
+    // arrow function
+    // tslint:disable-next-line:only-arrow-functions
     this.idArray.forEach(function(id, i) {
+      const memberId: number = id;  // Выбирает идентификатор выделенного из массива
 
-      // Need to match ids in idArray with dataSource.data.
-      const memberId: number = id;  // Extracts member id from selection array.
-
-      // Search dataSource for each member_id and push those selected into a new data object.
+      // Поиск dataSource для каждого member_id и вставка выбранных в новый объект данных.
+      // tslint:disable-next-line:only-arrow-functions
       ds.forEach(function(member, index) {
 
         if (ds[index][property] === memberId) {
@@ -210,23 +182,11 @@ export class MembersComponent implements AfterViewInit, OnInit{
       });
     });
 
-    this.idArray = []; // Empty the array for next query.
+    this.idArray = []; // массив
     this.memberArray = tempArray;
     this.paginator.pageIndex = 0;
     this.dataSource.data = this.memberArray;
   }
-
-// -----------  UTILITIES ------------------
-
-
-  private success() {
-    this.messagesService.openDialog('Success', 'Database updated as you wished!');
-  }
-
-  private handleError(error) {
-    this.messagesService.openDialog('Error', 'No database connection.');
-  }
-
 
 
 }

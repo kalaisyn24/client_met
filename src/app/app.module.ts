@@ -44,7 +44,6 @@ import { MembersComponent } from './members/members.component';
 import { AddEditFormComponent } from './members/add-edit-form/add-edit-form.component';
 import { AddMemberComponent } from './members/add-member/add-member.component';
 import { EditMemberComponent } from './members/edit-member/edit-member.component';
-import { ConfirmComponent } from './services/confirm-dialog/confirm.component';
 import { MessagesComponent } from './services/messages-service/messages.component';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ErrorMatcherService} from './services/form-validation/form-validators.service';
@@ -53,7 +52,6 @@ import {UniqueNameService} from './services/unique-name.service';
 import {UpdateDatatableService} from './services/update-datatable.service';
 import {FormErrorsService} from './services/form-validation/form-errors.service';
 import {MessagesService} from './services/messages-service/messages.service';
-import {ConfirmService} from './services/confirm-dialog/confirm.service';
 import {HttpService} from './http.service';
 import {HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
@@ -64,7 +62,6 @@ import {InMemoryDataService} from '../server/in-memory-data.service';
   declarations: [
     AppComponent,
     MembersComponent,
-    ConfirmComponent,
     MessagesComponent,
     EditMemberComponent,
     AddMemberComponent,
@@ -123,7 +120,6 @@ import {InMemoryDataService} from '../server/in-memory-data.service';
     MembersComponent,
     HttpClientModule,
     HttpService,
-    ConfirmService,
     MessagesService,
     FormErrorsService,
     UpdateDatatableService,
@@ -134,7 +130,6 @@ import {InMemoryDataService} from '../server/in-memory-data.service';
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    ConfirmComponent,
     MessagesComponent,
     EditMemberComponent,
     AddMemberComponent,

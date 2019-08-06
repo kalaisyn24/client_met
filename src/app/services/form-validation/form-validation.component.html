@@ -18,7 +18,6 @@ import { HttpService } from '../services/http.service';
 import { MainProcessorService } from '../services/processors/main-processor.service';
 
 
-import { ConfirmService } from '../services/confirm-dialog/confirm.service';
 import { MessagesService } from '../services/messages-service/messages.service';
 
 import { MemberModel } from './member.model';
@@ -117,7 +116,6 @@ private searchTerm$ = new Subject<string>();
 constructor(
 public dialog: MatDialog,
 private httpService: HttpService,
-private confirmService: ConfirmService,
 private messagesService: MessagesService,
 private mainProcessorService: MainProcessorService,
 ) {
