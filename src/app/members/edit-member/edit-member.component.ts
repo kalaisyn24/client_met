@@ -39,7 +39,7 @@ export class EditMemberComponent implements AfterViewInit {
 
 
   // This is a form group from FormBuilder.
-  @ViewChild(AddEditFormComponent, {static: false})
+  @ViewChild(AddEditFormComponent, {static: true})
   private addEditForm: AddEditFormComponent;
 
 
@@ -83,7 +83,6 @@ export class EditMemberComponent implements AfterViewInit {
         (err: HttpErrorResponse) => {
           console.log(err.error);
           console.log(err.message);
-          this.handleError(err);
         });
   }
 
@@ -104,7 +103,7 @@ export class EditMemberComponent implements AfterViewInit {
 
 
 
-// ---- UPDATE ----  Called from edit-member.component.html
+// ---- UPDATE ----  вызывается edit-member.component.html
 
   public update(formValue) {
     if (this.addEditForm.addEditMemberForm.valid) {
@@ -119,18 +118,15 @@ export class EditMemberComponent implements AfterViewInit {
           (err: HttpErrorResponse) => {
             console.log(err.error);
             console.log(err.message);
-            this.handleError(err);
           }
         );
     }
   }
-
-  // Check if the user_name field has a name already and set
-  //   the unique user name validation field to false so
-  //   it doesn't trigger validation until changed.
-
+   // Проверяем, есть ли в поле user_name имя и устанавливаем
+   // поле проверки уникального имени пользователя в false, так
+   // проверка не запускается, пока не будет изменена.
   private existingUserName() {
-    if (this.addEditForm.addEditMemberForm.controls['user_name']
+    if (this.addEditForm.addEditMemberForm.controls.user_name
       .value !== null) {
       this.addEditForm.inDatabase = false;
     } else {
@@ -139,20 +135,11 @@ export class EditMemberComponent implements AfterViewInit {
   }
 
 
-  // ---- UTILITIES ----
-
-
-  private reset() {
-    this.addEditForm.addEditMemberForm.reset();
-  }
 
   private success() {
     this.messagesService.openDialog('Success', 'Database updated as you wished!');
   }
 
-  private handleError(error) {
-    this.messagesService.openDialog('Error em1', 'Please check your Internet connection.');
-  }
 }
 
 

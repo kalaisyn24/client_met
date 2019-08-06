@@ -15,9 +15,7 @@ export class ErrorMatcherService implements ErrorStateMatcher {
 }
 
 export const errorMessages: { [key: string]: string } = {
-  required: 'This field is required',
-  middle_initial: 'Only one letter allowed',
-  email: 'Invalid email address',
+  required: 'Обезательное поле',
 };
 
 

@@ -56,10 +56,11 @@ import {MessagesService} from './services/messages-service/messages.service';
 import {ConfirmService} from './services/confirm-dialog/confirm.service';
 import {HttpService} from './http.service';
 import {HttpClientModule} from '@angular/common/http';
+import {CommonModule} from '@angular/common';
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {InMemoryDataService} from '../server/in-memory-data.service';
 
 @NgModule({
-  entryComponents: [
-  ],
   declarations: [
     AppComponent,
     MembersComponent,
@@ -70,6 +71,15 @@ import {HttpClientModule} from '@angular/common/http';
     AddEditFormComponent
   ],
   imports: [
+    BrowserModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService
+    ),
     FlexLayoutModule,
     BrowserModule,
     AppRoutingModule,
@@ -122,6 +132,12 @@ import {HttpClientModule} from '@angular/common/http';
     {provide: MAT_DIALOG_DATA, useValue: {}},
     {provide: MatDialogRef, useValue: {}},
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ConfirmComponent,
+    MessagesComponent,
+    EditMemberComponent,
+    AddMemberComponent,
+  ],
 })
 export class AppModule { }
