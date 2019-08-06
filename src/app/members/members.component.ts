@@ -1,4 +1,4 @@
-import { Component, ViewChild, Injectable} from '@angular/core';
+import {Component, ViewChild, Injectable, OnInit, AfterViewInit} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { MatPaginator, MatTableDataSource } from '@angular/material';
@@ -25,7 +25,8 @@ import { countries } from '../../server/countries-list';
 })
 
 
-export class MembersComponent {
+export class MembersComponent implements AfterViewInit, OnInit{
+
 
   private idColumn = 'id';
   private dbTable = 'members';
@@ -40,7 +41,7 @@ export class MembersComponent {
   private addMemberComponent = AddMemberComponent;
   private editMemberComponent = EditMemberComponent;
 
-  private idArray: number[] = [];  // Create array for checkbox selection in table.
+  private idArray: number[] = [];  // id для флажка в таблице
   private memberArray = [];
 
   public displayedColumns = [
@@ -54,12 +55,12 @@ export class MembersComponent {
 
   public dataSource = new MatTableDataSource;
 
-  // For the countries search dropdown.
+  // сортировка по странам
   public countries = countries;
   public country: string;
   public countriesControl = new FormControl('');
 
-  // For last name query
+  // запрос фамилии
   public searchTerm$ = new Subject<string>();
 
   constructor(
@@ -70,7 +71,7 @@ export class MembersComponent {
   ) {
 
 
-    // ------  LAST NAME SERCH -------------
+    // ------  ПОИСК ПО ИМЕНИ -------------
 
     this.httpService.nameSearch(this.searchTerm$)
       .subscribe(data => {
@@ -79,45 +80,13 @@ export class MembersComponent {
       });
   }
 
+  ngOnInit() { this.getAllRecords(); }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
-  /*  The Angular Material Data Table docs recommended http with paginator setup below reloads the earlier query when the user alternates between multiple queries in one view.  More queries on the page makes this worse fast.  My suggested code here works.
-
-  */
-  /*
-    private getAllRecords(): any {
-      // Kills the paginator if omitted.
-      this.dataSource.paginator = this.paginator;
-
-      merge(this.paginator.page).pipe(
-        // Tap called only with page forward.
-        tap(val => console.log('page forward in getAllRecords')),
-        startWith(null),  // Delete this and no data is downloaded.
-        switchMap(() => {
-          console.log('paginator.pageIndex: ', this.paginator.pageIndex);
-          console.log('paginator.length: ', paginator.length);  // Should show all records for the second page, index 1.
-          return this.httpService.getAllRecords(this.membersUrl);
-        }),
-      )
-
-      .subscribe(data => {
-        this.dataLength = data.length;
-        this.dataSource.data = data;
-      },
-      (err: HttpErrorResponse) => {
-      console.log(err.error);
-      console.log(err.message);
-      });
-    }
-  */
-
-  // -------------- CRUD ----------------------
-
-
-  // ----------------- GET ALL ------------------
+  // ----------------- получить данные ------------------
 
   //  This works fine when multiple queries used.
   public getAllRecords(): any {
@@ -140,7 +109,7 @@ export class MembersComponent {
 
   public editRecord(recordId) {
     this.dialog.open(this.editMemberComponent, {
-      data: {recordId: recordId, idColumn: this.idColumn, paginator: this.paginator, dataSource: this.dataSource}
+      data: {recordId, idColumn: this.idColumn, paginator: this.paginator, dataSource: this.dataSource}
     });
   }
 
@@ -180,7 +149,7 @@ export class MembersComponent {
   }
 
 // Remove the deleted row from the data table. Need to remove from the downloaded data first.
-  private deleteRowDataTable (recordId, idColumn, paginator, dataSource) {
+  private deleteRowDataTable(recordId, idColumn, paginator, dataSource) {
     this.dsData = dataSource.data;
     const itemIndex = this.dsData.findIndex(obj => obj[idColumn] === recordId);
     dataSource.data.splice(itemIndex, 1);
@@ -227,13 +196,13 @@ export class MembersComponent {
     const ds = this.dataSource.data;
     const property = 'id';
 
-    this.idArray.forEach(function (id, i) {
+    this.idArray.forEach(function(id, i) {
 
       // Need to match ids in idArray with dataSource.data.
       const memberId: number = id;  // Extracts member id from selection array.
 
       // Search dataSource for each member_id and push those selected into a new data object.
-      ds.forEach(function (member, index) {
+      ds.forEach(function(member, index) {
 
         if (ds[index][property] === memberId) {
           tempArray.push(member);
@@ -257,7 +226,6 @@ export class MembersComponent {
   private handleError(error) {
     this.messagesService.openDialog('Error', 'No database connection.');
   }
-
 
 
 

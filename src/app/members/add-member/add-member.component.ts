@@ -39,7 +39,7 @@ export class AddMemberComponent {
 
   public save(addMemberForm) {
 
-    // проверяем форму на валидность, если false, ретурним, если тру закрываем окно
+    // проверяем форму на валидность, если false, ретурним, если тру закрываем окно И СОХРАНЯЕМ
 
     if (this.addMemberForm.addEditMemberForm.valid) {
 

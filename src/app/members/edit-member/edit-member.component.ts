@@ -38,7 +38,7 @@ export class EditMemberComponent implements AfterViewInit {
   private dataSource;
 
 
-  // This is a form group from FormBuilder.
+  // formbuilder
   @ViewChild(AddEditFormComponent, {static: true})
   private addEditForm: AddEditFormComponent;
 
@@ -56,11 +56,9 @@ export class EditMemberComponent implements AfterViewInit {
 
 
 
-  // ---- GET DATA BY ID ----
+  // ---- получение данных ----
 
 
-// Need to load the data after the form is rendered so ngOnInit didn't work.
-// setTimeout is a hack to avoid ExpressionChangedAfterItHasBeenCheckedError
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -112,16 +110,12 @@ export class EditMemberComponent implements AfterViewInit {
             // Обновляем представление данных таблицы для изменений.
             this.updateDatatableService.updateDataTable(
               result, this.recordId, this.idColumn, this.paginator, this.dataSource, formValue);
-            this.success();
+            this.dialogRef.close(true);
           },
-          (err: HttpErrorResponse) => {
-            console.log(err.error);
-            console.log(err.message);
-          }
         );
     }
   }
-   // Проверяем, есть ли в поле user_name имя и устанавливаем
+   // Проверяем, есть ли в поле user_name имя
    // поле проверки уникального имени пользователя в false, так
    // проверка не запускается, пока не будет изменена.
   private existingUserName() {
@@ -134,10 +128,6 @@ export class EditMemberComponent implements AfterViewInit {
   }
 
 
-
-  private success() {
-    this.messagesService.openDialog('Success', 'Database updated as you wished!');
-  }
 
 }
 
