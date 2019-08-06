@@ -33,8 +33,7 @@ export class MembersComponent {
 
   private dsData: any;
 
-// dataSource: MatTableDataSource<MemberModel>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
   public dataLength: number;
 
@@ -64,7 +63,7 @@ export class MembersComponent {
   public searchTerm$ = new Subject<string>();
 
   constructor(
-    private httpService:  HttpService,
+    private httpService: HttpService,
     public dialog: MatDialog,
     private confirmService: ConfirmService,
     private messagesService: MessagesService,

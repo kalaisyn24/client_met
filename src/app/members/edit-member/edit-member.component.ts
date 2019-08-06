@@ -39,7 +39,7 @@ export class EditMemberComponent implements AfterViewInit {
 
 
   // This is a form group from FormBuilder.
-  @ViewChild(AddEditFormComponent)
+  @ViewChild(AddEditFormComponent, {static: false})
   private addEditForm: AddEditFormComponent;
 
 

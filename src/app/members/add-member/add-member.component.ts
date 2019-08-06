@@ -25,7 +25,7 @@ import { FormErrorsService } from '../../services/form-validation/form-errors.se
 
 export class AddMemberComponent {
 
-  @ViewChild(AddEditFormComponent)
+  @ViewChild(AddEditFormComponent, {static: false})
   public addMemberForm: AddEditFormComponent;
 
   private membersUrl = 'api/members';

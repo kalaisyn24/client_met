@@ -39,11 +39,23 @@ import {
   MatTooltipModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MembersComponent } from './members/members.component';
 import { AddEditFormComponent } from './members/add-edit-form/add-edit-form.component';
 import { AddMemberComponent } from './members/add-member/add-member.component';
 import { EditMemberComponent } from './members/edit-member/edit-member.component';
+import { ConfirmComponent } from './services/confirm-dialog/confirm.component';
+import { MessagesComponent } from './services/messages-service/messages.component';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {ErrorMatcherService} from './services/form-validation/form-validators.service';
+import {ShowOnDirtyErrorStateMatcher} from '@angular/material';
+import {UniqueNameService} from './services/unique-name.service';
+import {UpdateDatatableService} from './services/update-datatable.service';
+import {FormErrorsService} from './services/form-validation/form-errors.service';
+import {MessagesService} from './services/messages-service/messages.service';
+import {ConfirmService} from './services/confirm-dialog/confirm.service';
+import {HttpService} from './http.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   entryComponents: [
@@ -51,9 +63,11 @@ import { EditMemberComponent } from './members/edit-member/edit-member.component
   declarations: [
     AppComponent,
     MembersComponent,
-    AddEditFormComponent,
-    AddMemberComponent,
+    ConfirmComponent,
+    MessagesComponent,
     EditMemberComponent,
+    AddMemberComponent,
+    AddEditFormComponent
   ],
   imports: [
     FlexLayoutModule,
@@ -93,8 +107,21 @@ import { EditMemberComponent } from './members/edit-member/edit-member.component
     MatToolbarModule,
     MatTooltipModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    MembersComponent,
+    HttpClientModule,
+    HttpService,
+    ConfirmService,
+    MessagesService,
+    FormErrorsService,
+    UpdateDatatableService,
+    UniqueNameService,
+    {provide: ErrorMatcherService, useClass:     ShowOnDirtyErrorStateMatcher},
+    {provide: MAT_DIALOG_DATA, useValue: {}},
+    {provide: MatDialogRef, useValue: {}},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
