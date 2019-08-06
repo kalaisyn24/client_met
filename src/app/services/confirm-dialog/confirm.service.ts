@@ -5,7 +5,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import { Injectable } from '@angular/core';
 
 import { ConfirmComponent } from './confirm.component';
-
+// фигня которая инжектит сервис в другой
 @Injectable()
 export class ConfirmService {
 

@@ -1,15 +1,7 @@
-
-
-
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
 import { ErrorMatcherService, errorMessages } from '../../services/form-validation/form-validators.service';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-// Used for importing lists from the html.
 import { countries } from '../../../server/countries-list';
-
 import { UniqueNameService } from '../../services/unique-name.service';
 
 
@@ -27,10 +19,10 @@ export class AddEditFormComponent implements OnInit {
   public addEditMemberForm: FormGroup;
 
   public matcher = new ErrorMatcherService();
-  errors = errorMessages;  // Used on form html.
+  errors = errorMessages;  // для ошибок
 
 
-  // Used on form html.
+  // для таблицы в html
   public countries = countries;
 
   public inDatabase;
@@ -49,21 +41,19 @@ export class AddEditFormComponent implements OnInit {
     private fb: FormBuilder,
     public uniqueNameService: UniqueNameService,
   ) {
-    // Conditional that monitors testing for unique name by service.
     this.uniqueNameService.inDatabase.subscribe(result => {
-      this.inDatabase = result;  // When set to true it triggers the message.
-      return result === true ? this.isTaken() : null;
+      this.inDatabase = result;  // Когда  значение true, это вызывает сообщение.
     });
   }
 
   ngOnInit() {
     this.createForm();
-    // Set the initial user name validation trigger to false - no message.
+
     this.inDatabase = this.uniqueNameService.inDatabase.value;
   }
 
 
-  // The reactive model that is bound to the form.
+  // валидация + создание формы
 
   private createForm() {
     this.addEditMemberForm = this.fb.group({
@@ -78,33 +68,10 @@ export class AddEditFormComponent implements OnInit {
 
 
 
-  // Check db if name is already taken.
-  // If not then this.inDatabase = false (the trigger)
-  //   and isTaken() isn't called.
-  // Called from input blur property on template.
 
   public validateUsername(userName) {
     return this.uniqueNameService.validateUsername(userName);
   }
-
-
-
-  // This runs if inDatabase = true shows a match.
-  // See template and subscription in constructor.
-
-  private isTaken() {
-
-    // Remove the "already in database" message after some time.
-    setTimeout (() => {
-      this.inDatabase = false;
-
-      // Clear the field to reset validation and prepare for next attempt.
-      this.addEditMemberForm.controls['user_name']
-        .setValue(null);
-    }, 3000);
-
-  }
-
 
 }
 

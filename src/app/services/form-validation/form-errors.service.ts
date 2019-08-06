@@ -6,7 +6,7 @@ import { FormGroup } from '@angular/forms';
 @Injectable()
 export class FormErrorsService {
 
-  // return list of error messages
+  // ошибка
   public validationMessages() {
     const messages = {
       required: 'This field is required',
@@ -18,6 +18,7 @@ export class FormErrorsService {
         let matchedCharacters = matches;
 
         matchedCharacters = matchedCharacters.reduce((characterString, character, index) => {
+          // tslint:disable-next-line:variable-name
           let string = characterString;
           string += character;
 
@@ -34,11 +35,7 @@ export class FormErrorsService {
 
     return messages;
   }
-
-  // Validate form instance
-  // check_dirty true will only emit errors if the field is touched
-  // check_dirty false will check all fields independent of
-  // being touched or not. Use this as the last check before submitting
+// валидация ошибки
   public validateForm(formToValidate: FormGroup, formErrors: any, checkDirty?: boolean) {
     const form = formToValidate;
     console.log('formErrors in service: ', formErrors);

@@ -146,7 +146,7 @@ export class MembersComponent {
 
 
 
-// --------------- DELETE ------------------
+// --------------- Удалить ------------------
 
   public deleteRecord(recordId) {
     const dsData = this.dataSource.data;

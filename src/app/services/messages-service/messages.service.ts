@@ -19,7 +19,7 @@ export class MessagesService {
 
     return this.dialogRef.afterClosed();
 
-    // Nothing can live after afterClosed.
+    // Ничто не живет после того, как закрыто:D
   }
 
 }

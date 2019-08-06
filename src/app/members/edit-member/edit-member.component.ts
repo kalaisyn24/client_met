@@ -69,7 +69,6 @@ export class EditMemberComponent implements AfterViewInit {
   }
 
   public fetchRecord() {
-
     this.recordId = this.data.recordId;
     this.idColumn = this.data.idColumn;
     this.paginator = this.data.paginator;
@@ -110,7 +109,7 @@ export class EditMemberComponent implements AfterViewInit {
       this.httpService.updateRecord(this.membersUrl, formValue)
         .subscribe(
           result => {
-            // Update the table data view for the changes.
+            // Обновляем представление данных таблицы для изменений.
             this.updateDatatableService.updateDataTable(
               result, this.recordId, this.idColumn, this.paginator, this.dataSource, formValue);
             this.success();

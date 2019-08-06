@@ -1,11 +1,4 @@
-
-
-
-//  Child components process their own data, not the main-processor service.
-
 import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
-
-import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialogRef} from '@angular/material';
 import { AddEditFormComponent } from '../add-edit-form/add-edit-form.component';
 
@@ -29,11 +22,10 @@ export class AddMemberComponent {
   public addMemberForm: AddEditFormComponent;
 
   private membersUrl = 'api/members';
-  private dbTable = 'members';
 
   constructor(
     private httpService: HttpService,
-    public dialogRef: MatDialogRef<AddMemberComponent>,  // Used by the html component.
+    public dialogRef: MatDialogRef<AddMemberComponent>,
     private messagesService: MessagesService,
     public formErrorsService: FormErrorsService
   ) { }
@@ -43,29 +35,19 @@ export class AddMemberComponent {
     this.addMemberForm.addEditMemberForm.reset();
   }
 
-  //  Processes form data and sends it to the server and db.
+  //  проверка данных и сохранение
 
   public save(addMemberForm) {
 
-    // right before we submit our form to the server we check if the form is valid
-    // if not, we pass the form to the validateform function again. Now with check dirty false
-    // this means we check every form field independent of whether it's touched.
+    // проверяем форму на валидность, если false, ретурним, если тру закрываем окно
 
     if (this.addMemberForm.addEditMemberForm.valid) {
 
       const enteredData = this.addMemberForm.addEditMemberForm.value;
 
-      this.httpService.addRecord(this.membersUrl, enteredData)
-        .subscribe(
-          res => {
-            this.success();
-          },
-          (err: HttpErrorResponse) => {
-            console.log(err.error);
-            console.log(err.message);
-            this.handleError(err);
-          }
-        );
+      this.httpService.addRecord(this.membersUrl, enteredData).subscribe();
+      this.dialogRef.close();
+
     } else {
       this.addMemberForm.formErrors = this.formErrorsService.validateForm(
         this.addMemberForm.addEditMemberForm,
@@ -75,13 +57,10 @@ export class AddMemberComponent {
     addMemberForm.addEditMemberForm.reset();
   }
 
-  private success() {
-    this.messagesService.openDialog('Success', 'Database updated as you wished!');
-  }
+  // private success() {
+  //   this.messagesService.openDialog('Отлично', 'мембер добавлен');
+  // }
 
-  private handleError(error) {
-    this.messagesService.openDialog('Error addm1', 'Please check your Internet connection.');
-  }
 
 }
 
