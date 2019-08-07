@@ -119,7 +119,7 @@ export class HttpService {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap(term => {
-        const url = `api/members/?last_name=${term}`;
+        const url = `api/members/?ageData=${term}`;
         return this.http.get(url);
       }),
       catchError((error: any) => {
@@ -134,7 +134,7 @@ export class HttpService {
 
   public validateUsername(userName) {
 
-    const url = `api/members/?user_name=${userName}`;
+    const url = `api/members/?fioData=${userName}`;
     return this.http.get(url).pipe(
       map(data => {
         return data;

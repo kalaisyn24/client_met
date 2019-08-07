@@ -48,7 +48,7 @@ export class MembersComponent implements AfterViewInit, OnInit{
     'firstName',
     'lastName',
     'userName',
-    'country',
+    'charmData',
     'options'
   ];
 
@@ -56,7 +56,7 @@ export class MembersComponent implements AfterViewInit, OnInit{
 
   // сортировка по странам
   public countries = countries;
-  public country: string;
+  public charmData: string;
   public countriesControl = new FormControl('');
 
   // запрос фамилии
@@ -120,8 +120,8 @@ export class MembersComponent implements AfterViewInit, OnInit{
   public deleteRecord(recordId) {
     const dsData = this.dataSource.data;
 
-    const name1 = 'first_name';
-    const name2 = 'last_name';
+    const name1 = 'balance';
+    const name2 = 'ageData';
     const record = dsData.find(obj => obj[this.idColumn] === recordId);
     const name = 'Delete ' + record[name1] + ' ' + record[name2] + '?';
 
@@ -141,9 +141,9 @@ export class MembersComponent implements AfterViewInit, OnInit{
 
   // ----------- поиск по странам ------------------
 
-  public searchCountries(country): any {
+  public searchCountries(charmData): any {
 
-    const url = `${this.membersUrl}/?country=${country}`;
+    const url = `${this.membersUrl}/?charmData=${charmData}`;
 
     this.httpService.searchCountries(url)
       .subscribe(data => {

@@ -90,10 +90,10 @@ export class EditMemberComponent implements AfterViewInit {
   private fillForm(parsedData) {
     this.addEditForm.addEditMemberForm.setValue({
       id: parsedData.id,
-      first_name: parsedData.first_name,
-      last_name: parsedData.last_name,
-      user_name: parsedData.user_name,
-      country: parsedData.country,
+      balance: parsedData.balance,
+      ageData: parsedData.ageData,
+      fioData: parsedData.fioData,
+      charmData: parsedData.charmData,
     });
     this.existingUserName(); // If existing name, don't validate.
   }
@@ -115,11 +115,11 @@ export class EditMemberComponent implements AfterViewInit {
         );
     }
   }
-   // Проверяем, есть ли в поле user_name имя
+   // Проверяем, есть ли в поле fioData имя
    // поле проверки уникального имени пользователя в false, так
    // проверка не запускается, пока не будет изменена.
   private existingUserName() {
-    if (this.addEditForm.addEditMemberForm.controls.user_name
+    if (this.addEditForm.addEditMemberForm.controls.fioData
       .value !== null) {
       this.addEditForm.inDatabase = false;
     } else {

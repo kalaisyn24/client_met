@@ -25,7 +25,7 @@ export class UniqueNameService {
     return this.httpService.validateUsername(userName)
       .subscribe(res => {
           // @ts-ignore
-          const extractedName = res.map(x => x.user_name); // Creates an array with name. This works with other setups: = Object.values(res);
+          const extractedName = res.map(x => x.fioData); // Creates an array with name. This works with other setups: = Object.values(res);
 
           // Convert from array to string.
           const convertedName = extractedName.toString();

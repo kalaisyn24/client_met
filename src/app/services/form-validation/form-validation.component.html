@@ -44,8 +44,8 @@ encapsulation: ViewEncapsulation.None,
 export class MembersComponent implements AfterViewInit {
 
 // For delete confirm dialog in deleteItem to match the db column name to fetch.
-private name1 = 'first_name';
-private name2 = 'last_name';
+private name1 = 'balance';
+private name2 = 'ageData';
 
 
 // For CRUD functions in dialogs.
@@ -65,7 +65,7 @@ private idColumn = 'member_id';  // Change for other sections of app.
 // @Input() on child tags-section.
 private dbTable = 'members';  // db request in http service for the main component.
 private column = 'skill_id_array';
-private lastNameCol = 'last_name';
+private lastNameCol = 'ageData';
 
 // For category tags query @Input.  Used by injected component.
 private categoryTable = 'member_categories';
@@ -86,9 +86,9 @@ private dialogRef;
 
 // For the countries search dropdown.
 private countries = countries;
-private country: string;
+private charmData: string;
 private countriesControl = new FormControl('');
-private countryColumn = 'country';
+private charmDataColumn = 'charmData';
 
 private idArray: number[] = [];  // Create array for checkbox selection in table.
 private memberArray = [];
@@ -121,7 +121,7 @@ private mainProcessorService: MainProcessorService,
 ) {
 
 //  --------- LAST NAME INCREMENTAL QUERY ---------------
-const column = 'last_name';
+const column = 'ageData';
 this.httpService.nameSearch(this.dbTable, column, this.searchTerm$)
 .subscribe(data => {
 this.dataLength = data.length;
@@ -225,9 +225,9 @@ this.dataSource
 
 // -------- For countries dropdown list search ------------
 
-private searchCountries(country): any {
+private searchCountries(charmData): any {
 
-this.httpService.searchCountries(this.dbTable, this.countryColumn, country)
+this.httpService.searchCountries(this.dbTable, this.charmDataColumn, charmData)
 .subscribe(data => {
 this.mainProcessorService.getListData(
 data, this.dropDownTable, this.targetProperty, this.targetElementId, this.targetElementName);

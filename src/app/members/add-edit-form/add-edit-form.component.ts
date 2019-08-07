@@ -29,10 +29,10 @@ export class AddEditFormComponent implements OnInit {
 
 
   public formErrors = {
-    first_name: '',
-    last_name: '',
-    user_name: '',
-    country: '',
+    balance: '',
+    ageData: '',
+    fioData: '',
+    charmData: '',
   };
 
 
@@ -58,10 +58,10 @@ export class AddEditFormComponent implements OnInit {
   private createForm() {
     this.addEditMemberForm = this.fb.group({
       id: [''],
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      user_name: ['', Validators.required],
-      country: ['', Validators.required],
+      balance: ['', Validators.required],
+      ageData: ['', Validators.required],
+      fioData: ['', Validators.required],
+      charmData: ['', Validators.required],
     });
   }
 

@@ -14,10 +14,10 @@
   <div fxLayout="row" fxLayoutAlign="space-around center">
 
     <mat-form-field>
-      <mat-select placeholder="Search by country" [formControl]="countriesControl">
-        <mat-option *ngFor="let country of countries"
-                    [value]="country"
-                    (click)="searchCountries(country)">{{country}}
+      <mat-select placeholder="Search by charmData" [formControl]="countriesControl">
+        <mat-option *ngFor="let charmData of countries"
+                    [value]="charmData"
+                    (click)="searchCountries(charmData)">{{charmData}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -46,24 +46,24 @@
 
     <ng-container matColumnDef="firstName">
       <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.first_name}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.balance}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="lastName">
       <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
-      <mat-cell  *matCellDef="let row">  {{row.last_name}} </mat-cell>
+      <mat-cell  *matCellDef="let row">  {{row.ageData}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="userName">
       <mat-header-cell *matHeaderCellDef> User Name </mat-header-cell>
-      <mat-cell *matCellDef="let row">  {{row.user_name}} </mat-cell>
+      <mat-cell *matCellDef="let row">  {{row.fioData}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="country">
-      <mat-header-cell *matHeaderCellDef> Country </mat-header-cell>
-      <mat-cell *matCellDef="let row">  {{row.country}} </mat-cell>
+    <ng-container matColumnDef="charmData">
+      <mat-header-cell *matHeaderCellDef> charmData </mat-header-cell>
+      <mat-cell *matCellDef="let row">  {{row.charmData}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="options">
