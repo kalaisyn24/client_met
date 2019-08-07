@@ -65,7 +65,7 @@ private idColumn = 'member_id';  // Change for other sections of app.
 // @Input() on child tags-section.
 private dbTable = 'members';  // db request in http service for the main component.
 private column = 'skill_id_array';
-private lastNameCol = 'fioData';
+private ageTableCol = 'fioData';
 
 // For category tags query @Input.  Used by injected component.
 private categoryTable = 'member_categories';
@@ -95,9 +95,9 @@ private memberArray = [];
 
 private displayedColumns = [
 'select',
-'firstName',
-'lastName',
-'userName',
+'balanceTable',
+'ageTable',
+'fioTable',
 'pitch',
 'mainSkillTitle',
 'skills',

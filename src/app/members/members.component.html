@@ -6,8 +6,6 @@
     <button class='button' mat-raised-button (click)="getAllRecords()">
       Get all members</button>
 
-    <button mat-raised-button (click)="getAllSelected()">Show Selected</button>
-
     <button mat-raised-button (click)="addRecord()">Add</button>
   </div>
 
@@ -37,19 +35,19 @@
 
   <mat-table class="matTable" [dataSource]="dataSource">
 
-    <ng-container matColumnDef="firstName">
+    <ng-container matColumnDef="balanceTable">
       <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.balance}} </mat-cell>
     </ng-container>
 
 
-    <ng-container matColumnDef="lastName">
+    <ng-container matColumnDef="ageTable">
       <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
       <mat-cell  *matCellDef="let row">  {{row.ageData}} </mat-cell>
     </ng-container>
 
 
-    <ng-container matColumnDef="userName">
+    <ng-container matColumnDef="fioTable">
       <mat-header-cell *matHeaderCellDef> User Name </mat-header-cell>
       <mat-cell *matCellDef="let row">  {{row.fioData}} </mat-cell>
     </ng-container>

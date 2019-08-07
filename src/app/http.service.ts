@@ -1,14 +1,5 @@
 
 
-// THIS ONLY DELETES WHAT IS IN MEMORY.
-// REFRESHING THE BROWSER CLEARS THE MEMORY
-//   AND THE ORIGINAL FILE DB IS RELOADED.
-// THERE IS NO REAL DATABASE HERE.
-// FORK IT AND ADD FIREBASE IF YOU LIKE.
-
-// Showing different ways to pass a URL to the service.
-
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -32,9 +23,7 @@ export class HttpService {
     private http: HttpClient,
   ) { }
 
-// ----------------- CRUD -------------------
-
-  // --------------GET ALL RECORDS ------------
+  // -------------- получить все записи ------------
   public getAllRecords(url): Observable<any> {
     return this.http.get<MemberModel>(url).pipe(
       catchError((error: any) => {
@@ -45,9 +34,9 @@ export class HttpService {
   }
 
 
-  // ----------- CREATE new record -----------
+  // ----------- создание нового мембера -----------
 
-  public addRecord(url: string, recordData):  Observable<any> {
+  public addRecord(url: string, recordData): Observable<any> {
     return this.http.post(url, recordData).pipe(
       catchError((error: any) => {
         console.error(error);
@@ -57,9 +46,9 @@ export class HttpService {
   }
 
 
-  // ---------- EDIT AND UPDATE --------------
+  // ---------- Редактировать --------------
 
-  // ---- FETCH record detail for editing or viewing. ----
+  // ---- Получение данных для редактирования ----
 
   public getRecordById(url, recordId): Observable<any> {
     return this.http.get<any>(`${url}/${recordId}`).pipe(
@@ -71,7 +60,7 @@ export class HttpService {
   }
 
 
-  // ---- UPDATES an existing record ----
+  // ---- Сохранение данных ----
 
   public updateRecord(url, recordUpdate): Observable<any> {
     return this.http.put(url, recordUpdate, httpOptions).pipe(
@@ -84,19 +73,8 @@ export class HttpService {
 
 
 
-  // --------- DELETES a single record. ---------
 
-  public deleteRecord(url):  Observable<any> {
-    return this.http.delete(url).pipe(
-      catchError((error: any) => {
-        console.error(error);
-        return of();
-      }),
-    );
-  }
-
-
-// --------------- QUERIES ---------------------
+// --------------- Запросы(надо поизучать) ---------------------
 
   public searchCountries(url) {
     return this.http.get<any>(url).pipe(
@@ -110,9 +88,9 @@ export class HttpService {
     );
   }
 
-  // --------- INCREMENTAL SEARCH --------
+  // --------- поиск --------
 
-  //  Called by the Mat Datatable search by last name.
+  //  блин поиск который ищет в режиме live(нужно поизучать БД)
 
   public nameSearch(terms) {
     return terms.pipe(
@@ -129,12 +107,12 @@ export class HttpService {
     );
   }
 
-  // --------------- FORM CONTROLS ---------------------
+  // --------------- Валидация форм и обезательных полей---------------------
 
 
-  public validateUsername(userName) {
+  public validateUsername(fioTable) {
 
-    const url = `api/members/?fioData=${userName}`;
+    const url = `api/members/?fioData=${fioTable}`;
     return this.http.get(url).pipe(
       map(data => {
         return data;

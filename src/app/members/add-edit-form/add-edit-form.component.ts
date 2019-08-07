@@ -69,8 +69,8 @@ export class AddEditFormComponent implements OnInit {
 
 
 
-  public validateUsername(userName) {
-    return this.uniqueNameService.validateUsername(userName);
+  public validateUsername(fioTable) {
+    return this.uniqueNameService.validateUsername(fioTable);
   }
 
 }

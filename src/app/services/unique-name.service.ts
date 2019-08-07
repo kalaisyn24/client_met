@@ -20,9 +20,9 @@ export class UniqueNameService {
     private messagesService: MessagesService,
   ) {}
 
-  public validateUsername(userName) {
+  public validateUsername(fioTable) {
 
-    return this.httpService.validateUsername(userName)
+    return this.httpService.validateUsername(fioTable)
       .subscribe(res => {
           // @ts-ignore
           const extractedName = res.map(x => x.fioData); // Creates an array with name. This works with other setups: = Object.values(res);
@@ -30,7 +30,7 @@ export class UniqueNameService {
           // Convert from array to string.
           const convertedName = extractedName.toString();
 
-          return convertedName === userName ?
+          return convertedName === fioTable ?
             this.inDatabase.next(true) : null;
 
         },
