@@ -25,7 +25,7 @@
 
     <!-- Last name query. -->
     <mat-form-field id="searchField">
-      <input matInput (keyup)="searchTerm$.next($event.target.value)" placeholder="Search by last name">
+      <input matInput (keyup)="searchTerm$.next($event.target.value)" placeholder="Search by FIO">
       <mat-hint align="center">Enter at least first 3 letters.</mat-hint>
     </mat-form-field>
   </div>
@@ -36,13 +36,6 @@
 <section class='tableSection'>
 
   <mat-table class="matTable" [dataSource]="dataSource">
-
-    <ng-container matColumnDef="select">
-      <mat-header-cell *matHeaderCellDef> Select </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="selectMember(row.id)"></mat-checkbox>
-      </mat-cell>
-    </ng-container>
 
     <ng-container matColumnDef="firstName">
       <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>

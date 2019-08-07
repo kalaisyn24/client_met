@@ -119,7 +119,7 @@ export class HttpService {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap(term => {
-        const url = `api/members/?ageData=${term}`;
+        const url = `api/members/?fioData=${term}`;
         return this.http.get(url);
       }),
       catchError((error: any) => {
