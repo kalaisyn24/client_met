@@ -41,6 +41,7 @@ import {
 } from '@angular/material';
 import { GlobalTableComponent } from './components/global-table/global-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {UserService} from './components/service/user.service';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatToolbarModule,
     MatTooltipModule,
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
