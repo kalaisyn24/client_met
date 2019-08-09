@@ -3,6 +3,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {UserService} from '../service/user.service';
+import { UserData } from '../global-table/global-table.component';
+import {UserFilter} from '../../../model/UserFilter';
 
 export interface UserData {
   name: string;
@@ -23,7 +25,8 @@ export interface UserData {
 @Component({
   selector: 'app-global-table',
   templateUrl: './global-table.component.html',
-  styleUrls: ['./global-table.component.scss']
+  styleUrls: ['./global-table.component.scss'],
+  providers: [UserService]
 })
 
 
@@ -31,11 +34,14 @@ export interface UserData {
 export class GlobalTableComponent implements OnInit {
 
   private users;
+  public prosto;
   displayedColumns: string[] = ['fioData', 'ageData',  'balance', 'charmData', 'actions'];
   dataSource;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   private userServices: UserService;
+
+  private userFilter = new UserFilter();
 
   removeAt(index: number) {
     const data = this.dataSource.data;
@@ -56,14 +62,29 @@ export class GlobalTableComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.userFilter.name = filterValue;
+
+  }
+
+  applyFilter2(filterValue: string) {
+
+    this.userFilter.age = filterValue;
+
   }
 
   func() {
-    console.log(this.dataSource.data);
+
+
+    this.userServices.filter(this.userFilter);
+
   }
+
+
+  findClicked() {
+
+    this.userServices.filter(this.userFilter);
+
+  }
+
 }
