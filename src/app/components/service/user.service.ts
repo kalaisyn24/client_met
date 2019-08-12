@@ -6,11 +6,6 @@ import {DataSource} from '@angular/cdk/table';
 })
 
 export class UserService {
-  //
-  // constructor(private dataSource: DataSource) {
-  //   this.dataSource = dataSource;
-  //
-  // }
     private users = [
     {
       id: 100,

@@ -1,6 +1,9 @@
-export class UserFilter {
 
+export interface UserData {
   name: string;
-  age: string;
-
+  character: string;
+  age: number;
+  balance: number;
+  minBalance: number;
+  maxBalance: number;
 }

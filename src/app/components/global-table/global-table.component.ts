@@ -3,24 +3,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {UserService} from '../service/user.service';
-import { UserData } from '../global-table/global-table.component';
-import {UserFilter} from '../../../model/UserFilter';
-
-export interface UserData {
-  name: string;
-  character: string;
-  age: number;
-  balance: number;
-  minBalance: number;
-  maxBalance: number;
-}
-
-
-// /** Constants used to fill up our data base. */
-// const COLORS: string[] = [
-//   'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
-//   'aqua', 'blue', 'navy', 'black', 'gray'
-// ];
+import {UserData} from '../../../model/UserFilter';
 
 @Component({
   selector: 'app-global-table',
@@ -34,14 +17,12 @@ export interface UserData {
 export class GlobalTableComponent implements OnInit {
 
   private users;
-  public prosto;
   displayedColumns: string[] = ['fioData', 'ageData',  'balance', 'charmData', 'actions'];
   dataSource;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   private userServices: UserService;
 
-  private userFilter = new UserFilter();
 
   removeAt(index: number) {
     const data = this.dataSource.data;
@@ -61,30 +42,16 @@ export class GlobalTableComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-  applyFilter(filterValue: string) {
-
-    this.userFilter.name = filterValue;
-
-  }
-
-  applyFilter2(filterValue: string) {
-
-    this.userFilter.age = filterValue;
-
-  }
 
   func() {
-
-
-    this.userServices.filter(this.userFilter);
-
+    console.log(this.paginator.pageSize); // размер страницы
+    console.log(this.paginator.length); // размер массива
+    console.log(this.paginator.pageIndex); // сколько кнопок
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    const endIndex = startIndex + this.paginator.pageSize;
+    console.log(startIndex +  '-' + endIndex);
+    for (let i = startIndex; i < endIndex ; i++ ) {
+      console.log(this.dataSource.data[i]);
+    }
   }
-
-
-  findClicked() {
-
-    this.userServices.filter(this.userFilter);
-
-  }
-
 }
