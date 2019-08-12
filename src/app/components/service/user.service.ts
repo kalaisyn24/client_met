@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {DataSource} from '@angular/cdk/table';
+import {PageDetails} from '../../../model/PageDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +79,11 @@ export class UserService {
       charmData: 'goodGuy',
     }
   ];
+
+
+  public getSortedData(pageDetails: PageDetails) {
+    console.log(pageDetails.id);
+  }
 
     public getAll() {
     return this.users;

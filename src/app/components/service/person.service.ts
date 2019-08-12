@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
-import {DataSource} from '@angular/cdk/table';
+import {Injectable} from '@angular/core';
+import {PageDetails} from '../../../model/PageDetails';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
 
-  constructor() {}
+  constructor() {
+  }
+
+
 }

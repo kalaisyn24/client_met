@@ -3,7 +3,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {UserService} from '../service/user.service';
-import {UserData} from '../../../model/UserFilter';
+import {PageDetails} from '../../../model/PageDetails';
 
 @Component({
   selector: 'app-global-table',
@@ -12,45 +12,69 @@ import {UserData} from '../../../model/UserFilter';
   providers: [UserService]
 })
 
-
-
 export class GlobalTableComponent implements OnInit {
-
   private users;
-  displayedColumns: string[] = ['fioData', 'ageData',  'balance', 'charmData', 'actions'];
+  displayedColumns: string[] = ['fioData', 'ageData', 'balance', 'charmData', 'actions'];
   dataSource;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  private userServices: UserService;
 
-
-  removeAt(index: number) {
-    const data = this.dataSource.data;
-    data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
-
-    this.dataSource.data = data;
-  }
-  constructor(userService: UserService) {
+  constructor(public userService: UserService) {
     this.userServices = userService;
-    // Create 100 users
-
     this.users = this.userServices.getAll();
     this.dataSource = new MatTableDataSource(this.users);
+  }
+
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  private userServices: UserService;
+
+  pageFilter: PageDetails;
+
+
+  sortInfo() {
+    this.pageFilter = new PageDetails();
+    this.pageFilter.filter = this.dataSource.filter;
+    this.pageFilter.offset = this.paginator.pageIndex * this.paginator.pageSize;
+    this.pageFilter.limit = this.pageFilter.offset + this.paginator.pageSize;
+    this.pageFilter.sortName = this.dataSource.sort.direction;
+    this.pageFilter.sortActive = this.dataSource.sort.active;
+    this.userService.getSortedData(this.pageFilter);
+
+  }
+
+  remove(index: number) {
+    this.pageFilter = new PageDetails();
+    const arrayNumber = (this.paginator.pageIndex * this.paginator.pageSize) + index;
+    this.pageFilter.id = this.dataSource.data[arrayNumber].id;
+    this.userService.getSortedData(this.pageFilter);
   }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
   }
 
-  func() {
-    console.log(this.paginator.pageSize); // размер страницы
-    console.log(this.paginator.length); // размер массива
-    console.log(this.paginator.pageIndex); // сколько кнопок
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    const endIndex = startIndex + this.paginator.pageSize;
-    console.log(startIndex +  '-' + endIndex);
-    for (let i = startIndex; i < endIndex ; i++ ) {
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+
+  dataSort() {
+    console.log(this.dataSource.sort.direction + ',' + this.dataSource.sort.active);
+  }
+
+  dataFilter() {
+    console.log(this.dataSource.filter);
+  }
+
+  dataPagination() {
+    const offset = this.paginator.pageIndex * this.paginator.pageSize;
+    const limit = offset + this.paginator.pageSize;
+    console.log(offset + '-' + limit);
+    for (let i = offset; i < limit; i++) {
       console.log(this.dataSource.data[i]);
     }
   }
