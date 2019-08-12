@@ -5,22 +5,11 @@
 
     <button class='button' mat-raised-button (click)="getAllRecords()">
       Get all members</button>
-
-    <button mat-raised-button (click)="getAllSelected()">Show Selected</button>
-
     <button mat-raised-button (click)="addRecord()">Add</button>
   </div>
 
   <div fxLayout="row" fxLayoutAlign="space-around center">
 
-    <mat-form-field>
-      <mat-select placeholder="Search by charmData" [formControl]="countriesControl">
-        <mat-option *ngFor="let charmData of countries"
-                    [value]="charmData"
-                    (click)="searchCountries(charmData)">{{charmData}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
 
 
     <!-- Last name query. -->
@@ -37,21 +26,14 @@
 
   <mat-table class="matTable" [dataSource]="dataSource">
 
-    <ng-container matColumnDef="select">
-      <mat-header-cell *matHeaderCellDef> Select </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="selectMember(row.id)"></mat-checkbox>
-      </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="firstName">
-      <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Balance </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.balance}} </mat-cell>
     </ng-container>
 
 
     <ng-container matColumnDef="lastName">
-      <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> age </mat-header-cell>
       <mat-cell  *matCellDef="let row">  {{row.ageData}} </mat-cell>
     </ng-container>
 
@@ -62,15 +44,15 @@
     </ng-container>
 
     <ng-container matColumnDef="charmData">
-      <mat-header-cell *matHeaderCellDef> charmData </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> charm </mat-header-cell>
       <mat-cell *matCellDef="let row">  {{row.charmData}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="options">
       <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <button (click)="deleteRecord(row.id)">Delete</button>
-        <button (click)="editRecord(row.id)">Edit</button>
+        <button mat-button (click)="deleteRecord(row.id)"><mat-icon>delete</mat-icon></button>
+        <button mat-button (click)="editRecord(row.id)"><mat-icon>edit</mat-icon></button>
       </mat-cell>
     </ng-container>
 

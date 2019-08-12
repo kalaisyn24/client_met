@@ -44,7 +44,6 @@ export class MembersComponent implements AfterViewInit, OnInit{
   private memberArray = [];
 
   public displayedColumns = [
-    'select',
     'firstName',
     'lastName',
     'userName',

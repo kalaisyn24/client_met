@@ -20,3 +20,61 @@
     width: 1170px;
   }
 }
+body {
+  margin: 0;
+  background: linear-gradient(45deg, #1e3c72, #764ba2);
+  font-family: sans-serif;
+  font-weight: 100;
+  min-height: 100vh;
+  color: #fff;
+}
+.mat-form-field-appearance-legacy .mat-hint,.mat-form-field-appearance-legacy .mat-form-field-label {
+  color: #fff;
+}
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: rgb(255, 255, 255);
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: #fff;
+}
+  .sect {
+    margin: 0 auto;
+    width: 800px;
+  }
+  .mat-table {
+    width: 800px;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    margin: 0 auto;
+    background: #fff0;
+  }
+
+  .mat-cell,
+  .mat-header-cell {
+    padding: 15px;
+    background-color: rgba(255,255,255,0.2);
+    color: #fff;
+  }
+  .mat-elevation-z8 {
+    box-shadow: none;
+    margin: 20px auto;
+    width: 800px;
+  }
+  .mat-table {
+    .mat-header-cell {
+      background-color: #55608f;
+    }
+  }
+
+  .mat-table {
+    .mat-row {
+      &:hover {
+        background-color: rgba(255,255,255,0.3);
+      }
+    }
+  }
+.mat-dialog-content {
+  padding: 1rem !important;
+}
