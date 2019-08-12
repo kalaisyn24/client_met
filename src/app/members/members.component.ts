@@ -44,9 +44,10 @@ export class MembersComponent implements AfterViewInit, OnInit{
   private memberArray = [];
 
   public displayedColumns = [
-    'balanceTable',
-    'ageTable',
-    'fioTable',
+    'select',
+    'firstName',
+    'lastName',
+    'userName',
     'charmData',
     'options'
   ];
@@ -152,6 +153,40 @@ export class MembersComponent implements AfterViewInit, OnInit{
   }
 
 
+
+
+  // -------------- SELECT BOX ------------------
+
+
+  public selectMember(selectedMember) {
+    return this.idArray.push(selectedMember);
+  }
+  public getAllSelected() {
+    this.memberArray = [];
+    const tempArray = [];
+    const ds = this.dataSource.data;
+    const property = 'id';
+
+    // arrow function
+    // tslint:disable-next-line:only-arrow-functions
+    this.idArray.forEach(function(id, i) {
+      const memberId: number = id;  // Выбирает идентификатор выделенного из массива
+
+      // Поиск dataSource для каждого member_id и вставка выбранных в новый объект данных.
+      // tslint:disable-next-line:only-arrow-functions
+      ds.forEach(function(member, index) {
+
+        if (ds[index][property] === memberId) {
+          tempArray.push(member);
+        }
+      });
+    });
+
+    this.idArray = []; // массив
+    this.memberArray = tempArray;
+    this.paginator.pageIndex = 0;
+    this.dataSource.data = this.memberArray;
+  }
 
 
 }

@@ -97,7 +97,7 @@ export class HttpService {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap(term => {
-        const url = `api/members/?fioData=${term}`;
+        const url = `api/members/?ageData=${term}`;
         return this.http.get(url);
       }),
       catchError((error: any) => {

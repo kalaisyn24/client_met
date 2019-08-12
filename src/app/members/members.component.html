@@ -6,6 +6,8 @@
     <button class='button' mat-raised-button (click)="getAllRecords()">
       Get all members</button>
 
+    <button mat-raised-button (click)="getAllSelected()">Show Selected</button>
+
     <button mat-raised-button (click)="addRecord()">Add</button>
   </div>
 
@@ -23,7 +25,7 @@
 
     <!-- Last name query. -->
     <mat-form-field id="searchField">
-      <input matInput (keyup)="searchTerm$.next($event.target.value)" placeholder="Search by FIO">
+      <input matInput (keyup)="searchTerm$.next($event.target.value)" placeholder="Search by last name">
       <mat-hint align="center">Enter at least first 3 letters.</mat-hint>
     </mat-form-field>
   </div>
@@ -35,19 +37,26 @@
 
   <mat-table class="matTable" [dataSource]="dataSource">
 
-    <ng-container matColumnDef="balanceTable">
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef> Select </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="selectMember(row.id)"></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
       <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.balance}} </mat-cell>
     </ng-container>
 
 
-    <ng-container matColumnDef="ageTable">
+    <ng-container matColumnDef="lastName">
       <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
       <mat-cell  *matCellDef="let row">  {{row.ageData}} </mat-cell>
     </ng-container>
 
 
-    <ng-container matColumnDef="fioTable">
+    <ng-container matColumnDef="userName">
       <mat-header-cell *matHeaderCellDef> User Name </mat-header-cell>
       <mat-cell *matCellDef="let row">  {{row.fioData}} </mat-cell>
     </ng-container>
