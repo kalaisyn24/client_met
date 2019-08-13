@@ -1,0 +1,17 @@
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.fioData" placeholder="Name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.ageData"  placeholder="age">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.balance"  placeholder="balance">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.charmData"  placeholder="charm">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Update</button>
+</div>
