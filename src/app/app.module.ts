@@ -42,11 +42,17 @@ import {
 import { GlobalTableComponent } from './components/global-table/global-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {UserService} from './components/service/user.service';
+import { DialogeditComponent } from './components/global-table/dialogedit/dialogedit.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GlobalTableComponent
+    GlobalTableComponent,
+    DialogeditComponent
+  ],
+  entryComponents: [
+    DialogeditComponent
   ],
   imports: [
     FlexLayoutModule,
@@ -85,6 +91,7 @@ import {UserService} from './components/service/user.service';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    FormsModule,
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

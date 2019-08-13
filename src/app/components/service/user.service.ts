@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {DataSource} from '@angular/cdk/table';
 import {PageDetails} from '../../../model/PageDetails';
+import {UsersModel} from '../../../model/UsersModel';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
-    private users = [
+  private users = [
     {
       id: 100,
       fioData: 'Кузьмин Адольф Максович',
@@ -80,12 +81,30 @@ export class UserService {
     }
   ];
 
+  public getEditData(pageDetails: PageDetails): UsersModel {
+
+
+    let user;
+
+    for (let i = 0; i < this.users.length; i++) {
+
+
+      if (this.users[i].id === pageDetails.id) {
+        user = this.users[i];
+      }
+    }
+    return user;
+  }
 
   public getSortedData(pageDetails: PageDetails) {
+    console.log(pageDetails.sortName);
+  }
+
+  public getDeleteId(pageDetails: PageDetails) {
     console.log(pageDetails.id);
   }
 
-    public getAll() {
+  public getAll() {
     return this.users;
   }
 }

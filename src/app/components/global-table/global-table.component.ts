@@ -4,6 +4,8 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {UserService} from '../service/user.service';
 import {PageDetails} from '../../../model/PageDetails';
+import {DialogeditComponent} from './dialogedit/dialogedit.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-global-table',
@@ -14,11 +16,12 @@ import {PageDetails} from '../../../model/PageDetails';
 
 export class GlobalTableComponent implements OnInit {
   private users;
+  private editableData;
   displayedColumns: string[] = ['fioData', 'ageData', 'balance', 'charmData', 'actions'];
   dataSource;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(public userService: UserService) {
+  constructor(public userService: UserService, public dialog: MatDialog) {
     this.userServices = userService;
     this.users = this.userServices.getAll();
     this.dataSource = new MatTableDataSource(this.users);
@@ -30,6 +33,16 @@ export class GlobalTableComponent implements OnInit {
 
   pageFilter: PageDetails;
 
+  openDialog(index: number): void {
+    this.pageFilter = new PageDetails();
+    const arrayNumber = (this.paginator.pageIndex * this.paginator.pageSize) + index;
+    this.pageFilter.id = this.dataSource.data[arrayNumber].id;
+    const user = this.userService.getEditData(this.pageFilter);
+    const dialogRef = this.dialog.open(DialogeditComponent, {
+      width: '350px',
+      data: user
+    });
+  }
 
   sortInfo() {
     this.pageFilter = new PageDetails();
@@ -46,13 +59,12 @@ export class GlobalTableComponent implements OnInit {
     this.pageFilter = new PageDetails();
     const arrayNumber = (this.paginator.pageIndex * this.paginator.pageSize) + index;
     this.pageFilter.id = this.dataSource.data[arrayNumber].id;
-    this.userService.getSortedData(this.pageFilter);
+    this.userService.getDeleteId(this.pageFilter);
   }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
   }
 
   applyFilter(filterValue: string) {
