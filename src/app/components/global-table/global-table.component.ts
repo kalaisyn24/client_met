@@ -6,6 +6,7 @@ import {UserService} from '../service/user.service';
 import {PageDetails} from '../../../model/PageDetails';
 import {DialogeditComponent} from './dialogedit/dialogedit.component';
 import {MatDialog} from '@angular/material';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-global-table',
@@ -17,11 +18,12 @@ import {MatDialog} from '@angular/material';
 export class GlobalTableComponent implements OnInit {
   private users;
   private editableData;
+  routeQueryParams$: Subscription;
   displayedColumns: string[] = ['fioData', 'ageData', 'balance', 'charmData', 'actions'];
   dataSource;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(public userService: UserService, public dialog: MatDialog) {
+  constructor(public userService: UserService, public dialog: MatDialog ) {
     this.userServices = userService;
     this.users = this.userServices.getAll();
     this.dataSource = new MatTableDataSource(this.users);
@@ -52,7 +54,6 @@ export class GlobalTableComponent implements OnInit {
     this.pageFilter.sortName = this.dataSource.sort.direction;
     this.pageFilter.sortActive = this.dataSource.sort.active;
     this.userService.getSortedData(this.pageFilter);
-
   }
 
   remove(index: number) {
