@@ -27,9 +27,9 @@ export class DialogeditComponent implements OnInit {
     this.selectedUser = user;
   }
 
-  // FIXME переименовать
-  onNoClick(): void {
-    this.dialogRef.close();
+  onUpdate(): void {
+    const updUser = this.userService.updateUsers(this.selectedUser);
+    this.dialogRef.close(updUser);
   }
 
   ngOnInit() {

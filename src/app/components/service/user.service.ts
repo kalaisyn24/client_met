@@ -79,7 +79,14 @@ export class UserService {
       charmData: 'goodGuy',
     }
   ];
-
+  updateUsers(updatedUser: UsersModel) {
+    for (let i = 0; i < this.users.length; i++) {
+      if (updatedUser.id === this.users[i].id) {
+        this.users[i] = updatedUser;
+        return this.users;
+      }
+    }
+  }
   public getEditData(userId: number): UsersModel {
 
     let user;
@@ -93,14 +100,14 @@ export class UserService {
 
     return user;
   }
-
-  public getSortedData(pageDetails: PageDetails) {
-    console.log(pageDetails.sortName);
-  }
-
-  public getDeleteId(pageDetails: PageDetails) {
-    console.log(pageDetails.id);
-  }
+  //
+  // public getSortedData(pageDetails: PageDetails) {
+  //   console.log(pageDetails.sortName);
+  // }
+  //
+  // public getDeleteId(pageDetails: PageDetails) {
+  //   console.log(pageDetails.id);
+  // }
 
   public getAll() {
     return this.users;

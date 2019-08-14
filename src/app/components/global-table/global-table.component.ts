@@ -19,8 +19,6 @@ export class GlobalTableComponent implements OnInit {
   displayedColumns: string[] = ['fioData', 'ageData', 'balance', 'charmData', 'actions'];
   dataSource;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  // TODO any не использовать никогда
-  // FIXED
   private user: UsersModel;
 
   constructor(public userService: UserService, public dialog: MatDialog) {
@@ -40,23 +38,27 @@ export class GlobalTableComponent implements OnInit {
       width: '350px',
       data: id
     });
+    dialogRef.afterClosed().subscribe(result => {
+      this.dataSource.data = result;
+    });
   }
+  //
+  // sortInfo() {
+  //   this.pageFilter = new PageDetails();
+  //   this.pageFilter.filter = this.dataSource.filter;
+  //   this.pageFilter.offset = this.paginator.pageIndex * this.paginator.pageSize;
+  //   this.pageFilter.limit = this.pageFilter.offset + this.paginator.pageSize;
+  //   this.pageFilter.sortName = this.dataSource.sort.direction;
+  //   this.pageFilter.sortActive = this.dataSource.sort.active;
+  //   this.userService.getSortedData(this.pageFilter);
+  // }
 
-  sortInfo() {
-    this.pageFilter = new PageDetails();
-    this.pageFilter.filter = this.dataSource.filter;
-    this.pageFilter.offset = this.paginator.pageIndex * this.paginator.pageSize;
-    this.pageFilter.limit = this.pageFilter.offset + this.paginator.pageSize;
-    this.pageFilter.sortName = this.dataSource.sort.direction;
-    this.pageFilter.sortActive = this.dataSource.sort.active;
-    this.userService.getSortedData(this.pageFilter);
-  }
-
-  remove(index: number) {
-    this.pageFilter = new PageDetails();
-    const arrayNumber = (this.paginator.pageIndex * this.paginator.pageSize) + index;
-    this.pageFilter.id = this.dataSource.data[arrayNumber].id;
-    this.userService.getDeleteId(this.pageFilter);
+ remove(index: number) {
+  //   this.pageFilter = new PageDetails();
+  //   const arrayNumber = (this.paginator.pageIndex * this.paginator.pageSize) + index;
+  //   this.pageFilter.id = this.dataSource.data[arrayNumber].id;
+  //   this.userService.getDeleteId(this.pageFilter);
+  console.log(this.users[index]);
   }
 
   ngOnInit() {
@@ -69,21 +71,21 @@ export class GlobalTableComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-
-  dataSort() {
-    console.log(this.dataSource.sort.direction + ',' + this.dataSource.sort.active);
-  }
-
-  dataFilter() {
-    console.log(this.dataSource.filter);
-  }
-
-  dataPagination() {
-    const offset = this.paginator.pageIndex * this.paginator.pageSize;
-    const limit = offset + this.paginator.pageSize;
-    console.log(offset + '-' + limit);
-    for (let i = offset; i < limit; i++) {
-      console.log(this.dataSource.data[i]);
-    }
-  }
+  //
+  // dataSort() {
+  //   console.log(this.dataSource.sort.direction + ',' + this.dataSource.sort.active);
+  // }
+  //
+  // dataFilter() {
+  //   console.log(this.dataSource.filter);
+  // }
+  //
+  // dataPagination() {
+  //   const offset = this.paginator.pageIndex * this.paginator.pageSize;
+  //   const limit = offset + this.paginator.pageSize;
+  //   console.log(offset + '-' + limit);
+  //   for (let i = offset; i < limit; i++) {
+  //     console.log(this.dataSource.data[i]);
+  //   }
+  // }
 }

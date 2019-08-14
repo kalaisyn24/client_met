@@ -1,21 +1,20 @@
 <div mat-dialog-content>
   <mat-form-field>
-    <input matInput [(ngModel)]="changedData.fioData" placeholder="Name">
+    <input matInput [(ngModel)]="selectedUser.fioData" placeholder="Name">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="changedData.ageData"  placeholder="age">
+    <input matInput [(ngModel)]="selectedUser.ageData"  placeholder="age">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="changedData.balance"  placeholder="balance">
+    <input matInput [(ngModel)]="selectedUser.balance"  placeholder="balance">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="changedData.charmData"  placeholder="charm">
+    <input matInput [(ngModel)]="selectedUser.charmData"  placeholder="charm">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="changedData.id" placeholder="userId">
+    <input matInput [(ngModel)]="selectedUser.id" placeholder="userId">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <!--  TODO сделать сохранение юзера -->
-  <button mat-button (click)="onNoClick()">Update</button>
+  <button mat-button (click)="onUpdate()">Update</button>
 </div>
