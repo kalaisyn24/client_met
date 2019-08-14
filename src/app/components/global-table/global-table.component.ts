@@ -18,6 +18,7 @@ export class GlobalTableComponent implements OnInit {
   displayedColumns: string[] = ['fioData', 'ageData', 'balance', 'charmData', 'actions'];
   dataSource;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  private user: any;
 
   constructor(public userService: UserService, public dialog: MatDialog ) {
     this.userServices = userService;
@@ -30,18 +31,12 @@ export class GlobalTableComponent implements OnInit {
   private userServices: UserService;
 
   pageFilter: PageDetails;
-
   openDialog(ind: number): void {
-    console.log(ind);
-    this.pageFilter = new PageDetails();
-    this.pageFilter.ind = ind;
-    const user = this.userService.getEditData(this.pageFilter);
     const dialogRef = this.dialog.open(DialogeditComponent, {
       width: '350px',
-      data: user
+      data: {ind}
     });
   }
-
   sortInfo() {
     this.pageFilter = new PageDetails();
     this.pageFilter.filter = this.dataSource.filter;
