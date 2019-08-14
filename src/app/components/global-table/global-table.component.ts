@@ -6,19 +6,15 @@ import {UserService} from '../service/user.service';
 import {PageDetails} from '../../../model/PageDetails';
 import {DialogeditComponent} from './dialogedit/dialogedit.component';
 import {MatDialog} from '@angular/material';
-import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-global-table',
   templateUrl: './global-table.component.html',
-  styleUrls: ['./global-table.component.scss'],
-  providers: [UserService]
+  styleUrls: ['./global-table.component.scss']
 })
 
 export class GlobalTableComponent implements OnInit {
   private users;
-  private editableData;
-  routeQueryParams$: Subscription;
   displayedColumns: string[] = ['fioData', 'ageData', 'balance', 'charmData', 'actions'];
   dataSource;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -35,10 +31,10 @@ export class GlobalTableComponent implements OnInit {
 
   pageFilter: PageDetails;
 
-  openDialog(index: number): void {
+  openDialog(ind: number): void {
+    console.log(ind);
     this.pageFilter = new PageDetails();
-    const arrayNumber = (this.paginator.pageIndex * this.paginator.pageSize) + index;
-    this.pageFilter.id = this.dataSource.data[arrayNumber].id;
+    this.pageFilter.ind = ind;
     const user = this.userService.getEditData(this.pageFilter);
     const dialogRef = this.dialog.open(DialogeditComponent, {
       width: '350px',
@@ -59,7 +55,7 @@ export class GlobalTableComponent implements OnInit {
   remove(index: number) {
     this.pageFilter = new PageDetails();
     const arrayNumber = (this.paginator.pageIndex * this.paginator.pageSize) + index;
-    this.pageFilter.id = this.dataSource.data[arrayNumber].id;
+    this.pageFilter.ind = this.dataSource.data[arrayNumber].ind;
     this.userService.getDeleteId(this.pageFilter);
   }
 
