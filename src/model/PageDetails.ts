@@ -4,7 +4,7 @@ export class PageDetails {
   filter: string;
   offset: number;
   limit: number;
-  ind: number;
+  id: number;
 }
 
 

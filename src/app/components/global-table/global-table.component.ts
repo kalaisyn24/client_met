@@ -6,6 +6,7 @@ import {UserService} from '../service/user.service';
 import {PageDetails} from '../../../model/PageDetails';
 import {DialogeditComponent} from './dialogedit/dialogedit.component';
 import {MatDialog} from '@angular/material';
+import {UsersModel} from '../../../model/UsersModel';
 
 @Component({
   selector: 'app-global-table',
@@ -18,9 +19,11 @@ export class GlobalTableComponent implements OnInit {
   displayedColumns: string[] = ['fioData', 'ageData', 'balance', 'charmData', 'actions'];
   dataSource;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  private user: any;
+  // TODO any не использовать никогда
+  // FIXED
+  private user: UsersModel;
 
-  constructor(public userService: UserService, public dialog: MatDialog ) {
+  constructor(public userService: UserService, public dialog: MatDialog) {
     this.userServices = userService;
     this.users = this.userServices.getAll();
     this.dataSource = new MatTableDataSource(this.users);
@@ -31,12 +34,14 @@ export class GlobalTableComponent implements OnInit {
   private userServices: UserService;
 
   pageFilter: PageDetails;
-  openDialog(ind: number): void {
+
+  openDialog(id: number): void {
     const dialogRef = this.dialog.open(DialogeditComponent, {
       width: '350px',
-      data: {ind}
+      data: id
     });
   }
+
   sortInfo() {
     this.pageFilter = new PageDetails();
     this.pageFilter.filter = this.dataSource.filter;
@@ -50,7 +55,7 @@ export class GlobalTableComponent implements OnInit {
   remove(index: number) {
     this.pageFilter = new PageDetails();
     const arrayNumber = (this.paginator.pageIndex * this.paginator.pageSize) + index;
-    this.pageFilter.ind = this.dataSource.data[arrayNumber].ind;
+    this.pageFilter.id = this.dataSource.data[arrayNumber].id;
     this.userService.getDeleteId(this.pageFilter);
   }
 
@@ -64,7 +69,6 @@ export class GlobalTableComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-
 
   dataSort() {
     console.log(this.dataSource.sort.direction + ',' + this.dataSource.sort.active);
