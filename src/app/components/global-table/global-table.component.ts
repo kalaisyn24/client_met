@@ -7,6 +7,8 @@ import {PageDetails} from '../../../model/PageDetails';
 import {DialogeditComponent} from './dialogedit/dialogedit.component';
 import {MatDialog} from '@angular/material';
 import {UsersModel} from '../../../model/UsersModel';
+import {OnDestroy} from '@angular/core';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-global-table',
@@ -14,10 +16,11 @@ import {UsersModel} from '../../../model/UsersModel';
   styleUrls: ['./global-table.component.scss']
 })
 
-export class GlobalTableComponent implements OnInit {
+export class GlobalTableComponent implements OnInit, OnDestroy {
   private users;
   displayedColumns: string[] = ['fioData', 'ageData', 'balance', 'charmData', 'actions'];
   dataSource;
+  subscribe: Subscription;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   private user: UsersModel;
 
@@ -38,10 +41,11 @@ export class GlobalTableComponent implements OnInit {
       width: '350px',
       data: id
     });
-    dialogRef.afterClosed().subscribe(result => {
+    this.subscribe = dialogRef.afterClosed().subscribe(result => {
       this.dataSource.data = result;
     });
   }
+
   //
   // sortInfo() {
   //   this.pageFilter = new PageDetails();
@@ -52,13 +56,17 @@ export class GlobalTableComponent implements OnInit {
   //   this.pageFilter.sortActive = this.dataSource.sort.active;
   //   this.userService.getSortedData(this.pageFilter);
   // }
+// fixme
+  remove(index: number) {
+    //   this.pageFilter = new PageDetails();
+    //   const arrayNumber = (this.paginator.pageIndex * this.paginator.pageSize) + index;
+    //   this.pageFilter.id = this.dataSource.data[arrayNumber].id;
+    //   this.userService.getDeleteId(this.pageFilter);
+    console.log(this.users[index]);
+  }
 
- remove(index: number) {
-  //   this.pageFilter = new PageDetails();
-  //   const arrayNumber = (this.paginator.pageIndex * this.paginator.pageSize) + index;
-  //   this.pageFilter.id = this.dataSource.data[arrayNumber].id;
-  //   this.userService.getDeleteId(this.pageFilter);
-  console.log(this.users[index]);
+  ngOnDestroy() {
+    this.subscribe.unsubscribe();
   }
 
   ngOnInit() {
@@ -71,6 +79,7 @@ export class GlobalTableComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
   //
   // dataSort() {
   //   console.log(this.dataSource.sort.direction + ',' + this.dataSource.sort.active);
