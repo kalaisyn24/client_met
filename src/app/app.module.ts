@@ -44,15 +44,18 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {UserService} from './components/service/user.service';
 import { DialogeditComponent } from './components/global-table/dialogedit/dialogedit.component';
 import {FormsModule} from '@angular/forms';
+import { CreateUserComponent } from './components/global-table/create-user/create-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GlobalTableComponent,
-    DialogeditComponent
+    DialogeditComponent,
+    CreateUserComponent
   ],
   entryComponents: [
-    DialogeditComponent
+    DialogeditComponent,
+    CreateUserComponent
   ],
   imports: [
     FlexLayoutModule,

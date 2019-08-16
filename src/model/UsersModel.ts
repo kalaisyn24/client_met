@@ -1,3 +1,6 @@
+import {AddressModel} from './AddressModel';
+import {PhoneModel} from './PhoneModel';
+
 
 export interface UsersModel {
   id: number;
@@ -5,4 +8,8 @@ export interface UsersModel {
   ageData: number;
   balance: number;
   charmData: string;
+  addressOfResidence: AddressModel;
+  registrationAddress: AddressModel;
+  phone: PhoneModel;
+
 }

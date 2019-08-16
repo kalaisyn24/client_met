@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {UserService} from '../service/user.service';
@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material';
 import {UsersModel} from '../../../model/UsersModel';
 import {OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs';
+import {CreateUserComponent} from './create-user/create-user.component';
 
 @Component({
   selector: 'app-global-table',
@@ -19,50 +20,43 @@ import {Subscription} from 'rxjs';
 export class GlobalTableComponent implements OnInit, OnDestroy {
   private users;
   displayedColumns: string[] = ['fioData', 'ageData', 'balance', 'charmData', 'actions'];
-  dataSource;
+  dataSource: MatTableDataSource<UsersModel>;
   subscribe: Subscription;
+  pageFilter: PageDetails;
+  length: number;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  private user: UsersModel;
 
   constructor(public userService: UserService, public dialog: MatDialog) {
-    this.userServices = userService;
-    this.users = this.userServices.getAll();
     this.dataSource = new MatTableDataSource(this.users);
   }
-
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-
-  private userServices: UserService;
-
-  pageFilter: PageDetails;
-
   openDialog(id: number): void {
     const dialogRef = this.dialog.open(DialogeditComponent, {
       width: '350px',
       data: id
     });
     this.subscribe = dialogRef.afterClosed().subscribe(result => {
-      this.dataSource.data = result;
     });
   }
+  createUser(): void {
+    const dialogRef = this.dialog.open(CreateUserComponent, {
+      width: '350px',
+      data: { }
+    });
 
-  //
-  // sortInfo() {
-  //   this.pageFilter = new PageDetails();
-  //   this.pageFilter.filter = this.dataSource.filter;
-  //   this.pageFilter.offset = this.paginator.pageIndex * this.paginator.pageSize;
-  //   this.pageFilter.limit = this.pageFilter.offset + this.paginator.pageSize;
-  //   this.pageFilter.sortName = this.dataSource.sort.direction;
-  //   this.pageFilter.sortActive = this.dataSource.sort.active;
-  //   this.userService.getSortedData(this.pageFilter);
-  // }
-// fixme
-  remove(index: number) {
-    //   this.pageFilter = new PageDetails();
-    //   const arrayNumber = (this.paginator.pageIndex * this.paginator.pageSize) + index;
-    //   this.pageFilter.id = this.dataSource.data[arrayNumber].id;
-    //   this.userService.getDeleteId(this.pageFilter);
-    console.log(this.users[index]);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        this.dataSource.data.unshift(result);
+        this.userService.getNewUser(result);
+      }
+      this.dataSource._updateChangeSubscription();
+      console.log(this.dataSource.data);
+    });
+  }
+  remove(id: number) {
+    this.userService.removeUser(id);
+    this.dataSource.data = this.dataSource.data.filter(x => x.id !== id);
+    console.log(this.dataSource.data);
   }
 
   ngOnDestroy() {
@@ -70,7 +64,14 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    this.length = this.userService.getLength();
+    this.pageFilter = new PageDetails();
+    this.paginator.pageSize = 5;
+    this.paginator.pageIndex = 0;
+    this.pageFilter.offset = this.paginator.pageSize * this.paginator.pageIndex;
+    this.pageFilter.limit = this.pageFilter.offset + this.paginator.pageSize;
+    this.dataSource.data = this.userService.getSortedData(this.pageFilter);
+    console.log(this.dataSource.data);
     this.dataSource.sort = this.sort;
   }
 
@@ -79,22 +80,40 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+  sortData() {
+    this.pageFilter = new PageDetails();
+    this.pageFilter.filter = this.dataSource.filter;
+    this.pageFilter.offset = this.paginator.pageIndex * this.paginator.pageSize;
+    this.pageFilter.limit = this.pageFilter.offset + this.paginator.pageSize;
+    this.pageFilter.sortName = this.dataSource.sort.direction;
+    this.pageFilter.sortActive = this.dataSource.sort.active;
+    const sortedData = this.userService.getSortedData(this.pageFilter);
+    this.dataSource.data = sortedData;
+    this.length = this.userService.getFilteredLength(this.pageFilter);
+  }
 
-  //
-  // dataSort() {
-  //   console.log(this.dataSource.sort.direction + ',' + this.dataSource.sort.active);
-  // }
-  //
-  // dataFilter() {
-  //   console.log(this.dataSource.filter);
-  // }
-  //
-  // dataPagination() {
-  //   const offset = this.paginator.pageIndex * this.paginator.pageSize;
-  //   const limit = offset + this.paginator.pageSize;
-  //   console.log(offset + '-' + limit);
-  //   for (let i = offset; i < limit; i++) {
-  //     console.log(this.dataSource.data[i]);
-  //   }
-  // }
+  dataSort() {
+    console.log(this.dataSource.sort.direction + ',' + this.dataSource.sort.active);
+  }
+
+  dataFilter() {
+    console.log(this.dataSource.filter);
+  }
+
+  dataPagination() {
+    const offset = this.paginator.pageIndex * this.paginator.pageSize;
+    const limit = offset + this.paginator.pageSize;
+    console.log(offset + '-' + limit);
+    for (let i = offset; i < limit; i++) {
+      console.log(this.dataSource.data[i]);
+    }
+  }
+
+  setPage($event: PageEvent) {
+    this.pageFilter.filter = this.dataSource.filter;
+    this.pageFilter.offset = $event.pageIndex * $event.pageSize;
+    this.pageFilter.limit = this.pageFilter.offset + $event.pageSize;
+    const sortedData = this.userService.getSortedData(this.pageFilter);
+    this.dataSource.data = sortedData;
+  }
 }

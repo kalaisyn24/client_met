@@ -7,8 +7,7 @@ import {UsersModel} from '../../../../model/UsersModel';
 @Component({
   selector: 'app-dialogedit',
   templateUrl: './dialogedit.component.html',
-  styleUrls: ['./dialogedit.component.scss'],
-  providers: [UserService]
+  styleUrls: ['./dialogedit.component.scss']
 })
 export class DialogeditComponent implements OnInit {
 
@@ -34,7 +33,6 @@ export class DialogeditComponent implements OnInit {
 
   ngOnInit() {
     this.dataDialog();
-
   }
 
 }

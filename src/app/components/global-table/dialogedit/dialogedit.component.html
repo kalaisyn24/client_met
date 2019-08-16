@@ -14,6 +14,39 @@
   <mat-form-field>
     <input matInput [(ngModel)]="selectedUser.id" placeholder="userId">
   </mat-form-field>
+  <h2>Адресс регистрации</h2>
+  <mat-form-field>
+    <input matInput [(ngModel)]="selectedUser.registrationAddress.street" placeholder="regStreet">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="selectedUser.registrationAddress.home" placeholder="regHome">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="selectedUser.registrationAddress.flat" placeholder="regFlat">
+  </mat-form-field>
+  <h2>Адресс проживания</h2>
+  <mat-form-field>
+    <input matInput [(ngModel)]="selectedUser.addressOfResidence.street" placeholder="regStreet">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="selectedUser.addressOfResidence.home" placeholder="regHome">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="selectedUser.addressOfResidence.flat" placeholder="regFlat">
+  </mat-form-field>
+  <h2>Номера</h2>
+  <mat-form-field>
+    <input matInput [(ngModel)]="selectedUser.phone.mobile" placeholder="mobile">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="selectedUser.phone.home" placeholder="home">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="selectedUser.phone.work" placeholder="work">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="selectedUser.phone.mobile2" placeholder="mobile2">
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onUpdate()">Update</button>
