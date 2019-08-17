@@ -78,7 +78,6 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
     console.log(this.dataSource.data);
     this.dataSource.sort = this.sort;
   }
-
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
@@ -95,34 +94,7 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
     const sortedData = this.userService.getSortedData(this.pageFilter);
     this.dataSource.data = sortedData;
     this.length = this.userService.getFilteredLength(this.pageFilter);
-    /*const stringArray: any[] = [{
-      name: 'abs'
-    },
-      {
-        name: 'dee'
-      },
-      {
-        name: 'qwer'
-      },
-      {
-        name: 'rewq'
-      },
-      {
-        name: 'bca'
-      }];
-
-    const sortedArray: any[] = stringArray.sort((n1, n2) => {
-      if (n1.name > n2.name) {
-        return 1;
-      }
-
-      if (n1.name < n2.name) {
-        return -1;
-      }
-
-      return 0;
-    });
-    console.log(stringArray);*/
+    console.log(this.dataSource.data);
   }
 
   sortInfo() {

@@ -33,3 +33,62 @@
 .mat-form-field-infix {
   width: 302px !important;
 }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #49a09d, #5f2c82);
+  font-family: sans-serif;
+  font-weight: 100;
+}
+table {
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+thead th {
+  background-color: #55608f !important;
+}
+.mat-paginator {
+  background-color: #55608f !important;
+}
+th, td {
+  border-bottom: none !important;
+  color: #fff !important;
+}
+td {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+.mat-table {
+  background: initial !important;
+}
+.mat-paginator, .mat-paginator-page-size .mat-select-trigger {
+  color: #fff !important
+}
+.mat-select-value, .mat-select-arrow, .mat-form-field-appearance-legacy .mat-form-field-label,.mat-sort-header-arrow {
+  color: rgba(255, 255, 255, 0.87) !important;
+}
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: rgba(255, 255, 255, 0.87) !important;
+}
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+  border-bottom: red !important;
+}
+body{
+  display: flex;
+  align-items: center;
+  color: white;
+  justify-content: center;
+}
+input {
+  color: #fff !important;
+}
+section {
+  margin: 0 auto;
+}
+.mat-dialog-container {
+  background: linear-gradient(45deg, #49a09d, #5f2c82) !important;
+}
+h2, h3,h4,h1,.mat-button, .mat-icon-button, .mat-stroked-button, p {
+  color: #FFF;
+}

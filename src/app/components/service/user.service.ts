@@ -397,6 +397,167 @@ export class UserService {
       }
     },
     {
+      id: 9,
+      fioData: 'Никитина Инга Степановна',
+      ageData: 3123,
+      balance: 5432,
+      charmData: 'goodGuy',
+      registrationAddress: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      addressOfResidence: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      phone: {
+        mobile: 77470507282,
+        home: 789789,
+        work: 978987,
+        mobile2: 78978978978978978
+      }
+    },
+    {
+      id: 9,
+      fioData: 'Никитина Инга Степановна',
+      ageData: 3123,
+      balance: 5432,
+      charmData: 'goodGuy',
+      registrationAddress: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      addressOfResidence: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      phone: {
+        mobile: 77470507282,
+        home: 789789,
+        work: 978987,
+        mobile2: 78978978978978978
+      }
+    },
+    {
+      id: 9,
+      fioData: 'Никитина Инга Степановна',
+      ageData: 3123,
+      balance: 5432,
+      charmData: 'goodGuy',
+      registrationAddress: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      addressOfResidence: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      phone: {
+        mobile: 77470507282,
+        home: 789789,
+        work: 978987,
+        mobile2: 78978978978978978
+      }
+    },
+    {
+      id: 9,
+      fioData: 'Никитина Инга Степановна',
+      ageData: 3123,
+      balance: 5432,
+      charmData: 'goodGuy',
+      registrationAddress: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      addressOfResidence: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      phone: {
+        mobile: 77470507282,
+        home: 789789,
+        work: 978987,
+        mobile2: 78978978978978978
+      }
+    },
+    {
+      id: 9,
+      fioData: 'Никитина Инга Степановна',
+      ageData: 3123,
+      balance: 5432,
+      charmData: 'goodGuy',
+      registrationAddress: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      addressOfResidence: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      phone: {
+        mobile: 77470507282,
+        home: 789789,
+        work: 978987,
+        mobile2: 78978978978978978
+      }
+    },
+    {
+      id: 9,
+      fioData: 'Никитина Инга Степановна',
+      ageData: 3123,
+      balance: 5432,
+      charmData: 'goodGuy',
+      registrationAddress: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      addressOfResidence: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      phone: {
+        mobile: 77470507282,
+        home: 789789,
+        work: 978987,
+        mobile2: 78978978978978978
+      }
+    },
+    {
+      id: 9,
+      fioData: 'Никитина Инга Степановна',
+      ageData: 3123,
+      balance: 5432,
+      charmData: 'goodGuy',
+      registrationAddress: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      addressOfResidence: {
+        street: 'Рыскулова',
+        home: '75',
+        flat: '57'
+      },
+      phone: {
+        mobile: 77470507282,
+        home: 789789,
+        work: 978987,
+        mobile2: 78978978978978978
+      }
+    },
+    {
       id: 10,
       fioData: 'йцук ен',
       ageData: 53,
@@ -423,12 +584,10 @@ export class UserService {
 
   updateUsers(updatedUser: UsersModel) {
 
-    console.log('[users]:  ', this.users);
 
     for (let i = 0; i < this.users.length; i++) {
       if (updatedUser.id === this.users[i].id) {
         this.users[i] = updatedUser;
-        console.log('[users2]:  ', this.users);
         return this.users;
       }
     }
@@ -441,7 +600,6 @@ export class UserService {
 
       if (this.users[i].id === userId) {
         user = this.users[i];
-        console.log(('b' + 'a' + +'a' + 'a').toLowerCase() + user.id);
       }
     }
     return user;
@@ -454,43 +612,61 @@ export class UserService {
       for (let i = 0; i < this.users.length; i++) {
         if ((this.users[i].fioData).toLowerCase().includes((pageFilter.filter))) {
           filteredData.push(this.users[i]);
-
         }
       }
       return filteredData.length;
-      console.log(this.users.length);
     } else {
       return this.users.length;
     }
   }
+  // main method
   public getSortedData(pageFilter: PageDetails): UsersModel[] {
-    const dataSort: UsersModel[] = [];
-    if (pageFilter.sortName === undefined || pageFilter.sortName === '' ) {
+    // проверка фильтрации
+    const filteredData: UsersModel[] = [];
+    if (pageFilter.filter !== '') {
       for (let i = 0; i < this.users.length; i++) {
-        dataSort[i] = this.users[i];
+        if ((this.users[i].fioData).toLowerCase().includes((pageFilter.filter))) {
+          filteredData.push(this.users[i]);
+          console.log(filteredData[i]);
+          console.log(pageFilter.filter);
+        }
+      }
+    }
+    if (pageFilter.filter === '') {
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.users.length; i++) {
+        filteredData.push(this.users[i]);
+      }
+    }
+    const dataSort: UsersModel[] = [];
+    // если пустой фильтр
+    if (pageFilter.sortName === undefined || pageFilter.sortName === '' ) {
+      for (let i = 0; i < filteredData.length; i++) {
+        dataSort[i] = filteredData[i];
       }
     }
     // сортировка по fioData
     if (pageFilter.sortName === 'asc' && pageFilter.sortActive === 'fioData') {
-      for (let i = 0; i < this.users.length; i++) {
-        dataSort[i] = this.users[i];
+
+      for (let i = 0; i < filteredData.length; i++) {
+        dataSort[i] = filteredData[i];
       }
       const sortedArray: any[] = dataSort.sort((n1, n2) => {
-      if (n1.fioData > n2.fioData) {
-        return 1;
-      }
+        if (n1.fioData > n2.fioData) {
+          return 1;
+        }
 
-      if (n1.fioData < n2.fioData) {
-        return -1;
-      }
+        if (n1.fioData < n2.fioData) {
+          return -1;
+        }
 
-      return 0;
-    });
+        return 0;
+      });
     }
     // unсортировка по fioData
     if (pageFilter.sortName === 'desc' && pageFilter.sortActive === 'fioData') {
-      for (let i = 0; i < this.users.length; i++) {
-        dataSort[i] = this.users[i];
+      for (let i = 0; i < filteredData.length; i++) {
+        dataSort[i] = filteredData[i];
       }
       const sortedArray: any[] = dataSort.sort((n1, n2) => {
         if (n1.fioData > n2.fioData) {
@@ -504,32 +680,21 @@ export class UserService {
         return 0;
       });
     }
-    // проверка фильтрации
-    const filteredData: UsersModel[] = [];
-    if (pageFilter.filter !== '') {
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.users.length; i++) {
-        if ((this.users[i].fioData).toLowerCase().includes((pageFilter.filter))) {
-          filteredData.push(dataSort[i]);
-        }
-      }
-    }
+
     const sortedData: UsersModel[] = [];
-    if (filteredData.length !== 0) {
-      for (let i = pageFilter.offset; i < filteredData.length; i++) {
+    if (dataSort.length !== 0) {
+      for (let i = pageFilter.offset; i < dataSort.length; i++) {
         const filtered: UsersModel[] = [];
-        filtered[i] = filteredData[i];
+        filtered[i] = dataSort[i];
       }
-      for (let i = pageFilter.offset; i < pageFilter.limit; i++) {
-        sortedData.push(filteredData[i]);
-      }
-    } else {
       for (let i = pageFilter.offset; i < pageFilter.limit; i++) {
         sortedData.push(dataSort[i]);
       }
+    } else {
+      for (let i = pageFilter.offset; i < pageFilter.limit; i++) {
+        sortedData.push(this.users[i]);
+      }
     }
-
-    console.log(sortedData);
     return sortedData;
   }
 

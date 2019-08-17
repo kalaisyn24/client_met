@@ -7,3 +7,21 @@ table {
   width: 100%;
 }
 
+.action-container {
+  display: none;
+}
+.action {
+  opacity: 0;
+  position: absolute;
+  min-width: 100px;
+}
+tr:hover {
+  .action {
+    transition: 1s;
+    background-color: #ffffff00 !important;
+    opacity: 1;
+    display: block;
+    margin-left: -100px;
+    border-style: 8px;
+  }
+}
