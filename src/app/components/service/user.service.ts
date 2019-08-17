@@ -29,7 +29,7 @@ export class UserService {
       }
     },
     {
-      id: 100,
+      id: 1001,
       fioData: 'йцук ен',
       ageData: 14,
       balance: 1234,
@@ -52,7 +52,7 @@ export class UserService {
       }
     },
     {
-      id: 100,
+      id: 1002,
       fioData: 'йцук ен',
       ageData: 14,
       balance: 1234,
@@ -75,7 +75,7 @@ export class UserService {
       }
     },
     {
-      id: 100,
+      id: 1003,
       fioData: 'йцук ен',
       ageData: 14,
       balance: 1234,
@@ -98,7 +98,7 @@ export class UserService {
       }
     },
     {
-      id: 100,
+      id: 1004,
       fioData: 'йцук ен',
       ageData: 14,
       balance: 1234,
@@ -121,7 +121,7 @@ export class UserService {
       }
     },
     {
-      id: 100,
+      id: 1005,
       fioData: 'йцук ен',
       ageData: 14,
       balance: 1234,
@@ -144,7 +144,7 @@ export class UserService {
       }
     },
     {
-      id: 100,
+      id: 1006,
       fioData: 'йцук ен',
       ageData: 14,
       balance: 1234,
@@ -167,7 +167,7 @@ export class UserService {
       }
     },
     {
-      id: 100,
+      id: 1007,
       fioData: 'йцук ен',
       ageData: 14,
       balance: 1234,
@@ -190,7 +190,7 @@ export class UserService {
       }
     },
     {
-      id: 100,
+      id: 1008,
       fioData: 'йцук ен',
       ageData: 14,
       balance: 1234,
@@ -433,7 +433,6 @@ export class UserService {
       }
     }
   }
-
   // изменяем данные
   public getEditData(userId: number): UsersModel {
 
@@ -455,10 +454,11 @@ export class UserService {
       for (let i = 0; i < this.users.length; i++) {
         if ((this.users[i].fioData).toLowerCase().includes((pageFilter.filter))) {
           filteredData.push(this.users[i]);
+
         }
       }
+      return filteredData.length;
     }
-    return filteredData.length;
   }
   public getSortedData(pageFilter: PageDetails): UsersModel[] {
     const filteredData: UsersModel[] = [];
@@ -487,7 +487,23 @@ export class UserService {
       for (let i = pageFilter.offset; i < pageFilter.limit; i++) {
         sortedData.push(this.users[i]);
       }
-    }
+    }/*
+    sortedData.sort(function(a, b) {
+      return (a.fioData < b.fioData ? -1 : (a.fioData > b.fioData ? 1 : 0));
+    })*/
+
+    const sortedArray: any[] = sortedData.sort((n1, n2) => {
+      if (n1.fioData > n2.fioData) {
+        return 1;
+      }
+
+      if (n1.fioData < n2.fioData) {
+        return -1;
+      }
+
+      return 0;
+    });
+    console.log(sortedArray);
     return sortedData;
   }
 

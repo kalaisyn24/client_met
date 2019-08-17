@@ -29,7 +29,9 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
   constructor(public userService: UserService, public dialog: MatDialog) {
     this.dataSource = new MatTableDataSource(this.users);
   }
+
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+
   openDialog(id: number): void {
     const dialogRef = this.dialog.open(DialogeditComponent, {
       width: '350px',
@@ -38,10 +40,11 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
     this.subscribe = dialogRef.afterClosed().subscribe(result => {
     });
   }
+
   createUser(): void {
     const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '350px',
-      data: { }
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -53,6 +56,7 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
       console.log(this.dataSource.data);
     });
   }
+
   remove(id: number) {
     this.userService.removeUser(id);
     this.dataSource.data = this.dataSource.data.filter(x => x.id !== id);
@@ -80,6 +84,7 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
   sortData() {
     this.pageFilter = new PageDetails();
     this.pageFilter.filter = this.dataSource.filter;
@@ -89,24 +94,41 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
     this.pageFilter.sortActive = this.dataSource.sort.active;
     const sortedData = this.userService.getSortedData(this.pageFilter);
     this.dataSource.data = sortedData;
-    this.length = this.userService.getFilteredLength(this.pageFilter);
-  }
-
-  dataSort() {
-    console.log(this.dataSource.sort.direction + ',' + this.dataSource.sort.active);
-  }
-
-  dataFilter() {
-    console.log(this.dataSource.filter);
-  }
-
-  dataPagination() {
-    const offset = this.paginator.pageIndex * this.paginator.pageSize;
-    const limit = offset + this.paginator.pageSize;
-    console.log(offset + '-' + limit);
-    for (let i = offset; i < limit; i++) {
-      console.log(this.dataSource.data[i]);
+    if (this.pageFilter.filter !== '') {
+      this.length = this.userService.getFilteredLength(this.pageFilter);
     }
+    /*const stringArray: any[] = [{
+      name: 'abs'
+    },
+      {
+        name: 'dee'
+      },
+      {
+        name: 'qwer'
+      },
+      {
+        name: 'rewq'
+      },
+      {
+        name: 'bca'
+      }];
+
+    const sortedArray: any[] = stringArray.sort((n1, n2) => {
+      if (n1.name > n2.name) {
+        return 1;
+      }
+
+      if (n1.name < n2.name) {
+        return -1;
+      }
+
+      return 0;
+    });
+    console.log(stringArray);*/
+  }
+
+  sortInfo() {
+    console.log(this.dataSource.sort.direction + ',' + this.dataSource.sort.active);
   }
 
   setPage($event: PageEvent) {
