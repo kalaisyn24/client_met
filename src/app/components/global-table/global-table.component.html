@@ -1,7 +1,7 @@
 <section id="table">
   <div class="container">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      <input matInput (keyup)="applyFilter($event.target.value); sortData()" placeholder="Filter">
     </mat-form-field>
     <button (click)="createUser()">createUser</button>
     <br>
@@ -12,7 +12,7 @@
 
         <!-- Name Column -->
         <ng-container matColumnDef="fioData">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortInfo()"> Name </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header (click)="sortData()"> Name </th>
           <td mat-cell *matCellDef="let row"> {{row.fioData}} </td>
         </ng-container>
 

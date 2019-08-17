@@ -94,9 +94,7 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
     this.pageFilter.sortActive = this.dataSource.sort.active;
     const sortedData = this.userService.getSortedData(this.pageFilter);
     this.dataSource.data = sortedData;
-    if (this.pageFilter.filter !== '') {
-      this.length = this.userService.getFilteredLength(this.pageFilter);
-    }
+    this.length = this.userService.getFilteredLength(this.pageFilter);
     /*const stringArray: any[] = [{
       name: 'abs'
     },

@@ -30,7 +30,7 @@ export class UserService {
     },
     {
       id: 1001,
-      fioData: 'йцук ен',
+      fioData: 'айцук ен',
       ageData: 14,
       balance: 1234,
       charmData: 'badGuy',
@@ -458,41 +458,24 @@ export class UserService {
         }
       }
       return filteredData.length;
+      console.log(this.users.length);
+    } else {
+      return this.users.length;
     }
   }
   public getSortedData(pageFilter: PageDetails): UsersModel[] {
-    const filteredData: UsersModel[] = [];
-    if (pageFilter.filter !== '') {
-
-      // tslint:disable-next-line:prefer-for-of
+    const dataSort: UsersModel[] = [];
+    if (pageFilter.sortName === undefined || pageFilter.sortName === '' ) {
       for (let i = 0; i < this.users.length; i++) {
-        if ((this.users[i].fioData).toLowerCase().includes((pageFilter.filter))) {
-          filteredData.push(this.users[i]);
-        }
+        dataSort[i] = this.users[i];
       }
     }
-    const sortedData: UsersModel[] = [];
-    if (filteredData.length !== 0) {
-      for (let i = pageFilter.offset; i < filteredData.length; i++) {
-        const filtered: UsersModel[] = [];
-        filtered[i] = filteredData[i];
-        console.log(filtered[i]);
-        // sortedData[i] = filteredData[i];
+    // сортировка по fioData
+    if (pageFilter.sortName === 'asc' && pageFilter.sortActive === 'fioData') {
+      for (let i = 0; i < this.users.length; i++) {
+        dataSort[i] = this.users[i];
       }
-      for (let i = pageFilter.offset; i < pageFilter.limit; i++) {
-        sortedData.push(filteredData[i]);
-        console.log(sortedData[i]);
-      }
-    } else {
-      for (let i = pageFilter.offset; i < pageFilter.limit; i++) {
-        sortedData.push(this.users[i]);
-      }
-    }/*
-    sortedData.sort(function(a, b) {
-      return (a.fioData < b.fioData ? -1 : (a.fioData > b.fioData ? 1 : 0));
-    })*/
-
-    const sortedArray: any[] = sortedData.sort((n1, n2) => {
+      const sortedArray: any[] = dataSort.sort((n1, n2) => {
       if (n1.fioData > n2.fioData) {
         return 1;
       }
@@ -503,7 +486,50 @@ export class UserService {
 
       return 0;
     });
-    console.log(sortedArray);
+    }
+    // unсортировка по fioData
+    if (pageFilter.sortName === 'desc' && pageFilter.sortActive === 'fioData') {
+      for (let i = 0; i < this.users.length; i++) {
+        dataSort[i] = this.users[i];
+      }
+      const sortedArray: any[] = dataSort.sort((n1, n2) => {
+        if (n1.fioData > n2.fioData) {
+          return -1;
+        }
+
+        if (n1.fioData < n2.fioData) {
+          return 1;
+        }
+
+        return 0;
+      });
+    }
+    // проверка фильтрации
+    const filteredData: UsersModel[] = [];
+    if (pageFilter.filter !== '') {
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.users.length; i++) {
+        if ((this.users[i].fioData).toLowerCase().includes((pageFilter.filter))) {
+          filteredData.push(dataSort[i]);
+        }
+      }
+    }
+    const sortedData: UsersModel[] = [];
+    if (filteredData.length !== 0) {
+      for (let i = pageFilter.offset; i < filteredData.length; i++) {
+        const filtered: UsersModel[] = [];
+        filtered[i] = filteredData[i];
+      }
+      for (let i = pageFilter.offset; i < pageFilter.limit; i++) {
+        sortedData.push(filteredData[i]);
+      }
+    } else {
+      for (let i = pageFilter.offset; i < pageFilter.limit; i++) {
+        sortedData.push(dataSort[i]);
+      }
+    }
+
+    console.log(sortedData);
     return sortedData;
   }
 
