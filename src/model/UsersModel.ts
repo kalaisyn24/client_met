@@ -11,5 +11,4 @@ export interface UsersModel {
   addressOfResidence: AddressModel;
   registrationAddress: AddressModel;
   phone: PhoneModel;
-
 }

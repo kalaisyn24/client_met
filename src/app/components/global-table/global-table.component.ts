@@ -69,15 +69,14 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.length = this.userService.getLength();
-    this.pageFilter = new PageDetails();
     this.paginator.pageSize = 5;
-    this.paginator.pageIndex = 0;
+    this.pageFilter = new PageDetails();
     this.pageFilter.offset = this.paginator.pageSize * this.paginator.pageIndex;
     this.pageFilter.limit = this.pageFilter.offset + this.paginator.pageSize;
     this.dataSource.data = this.userService.getSortedData(this.pageFilter);
-    console.log(this.dataSource.data);
     this.dataSource.sort = this.sort;
   }
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
@@ -92,8 +91,9 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
     this.pageFilter.sortName = this.dataSource.sort.direction;
     this.pageFilter.sortActive = this.dataSource.sort.active;
     const sortedData = this.userService.getSortedData(this.pageFilter);
-    this.dataSource.data = sortedData;
     this.length = this.userService.getFilteredLength(this.pageFilter);
+    this.dataSource.data = sortedData;
+    this.dataSource._updateChangeSubscription();
     console.log(this.dataSource.data);
   }
 

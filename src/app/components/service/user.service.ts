@@ -596,8 +596,10 @@ export class UserService {
   public getEditData(userId: number): UsersModel {
 
     let user;
+    this.users.forEach((function(item, i, arr) {
+      alert( i + ': ' + item + ' (массив:' + arr + ')' );
+    }));
     for (let i = 0; i < this.users.length; i++) {
-
       if (this.users[i].id === userId) {
         user = this.users[i];
       }
@@ -626,9 +628,9 @@ export class UserService {
     if (pageFilter.filter !== '') {
       for (let i = 0; i < this.users.length; i++) {
         if ((this.users[i].fioData).toLowerCase().includes((pageFilter.filter))) {
-          filteredData.push(this.users[i]);
-          console.log(filteredData[i]);
-          console.log(pageFilter.filter);
+          if (this.users[i] !== undefined) {
+            filteredData.push(this.users[i]);
+          }
         }
       }
     }
@@ -680,15 +682,24 @@ export class UserService {
         return 0;
       });
     }
-
     const sortedData: UsersModel[] = [];
     if (dataSort.length !== 0) {
-      for (let i = pageFilter.offset; i < dataSort.length; i++) {
-        const filtered: UsersModel[] = [];
-        filtered[i] = dataSort[i];
-      }
-      for (let i = pageFilter.offset; i < pageFilter.limit; i++) {
-        sortedData.push(dataSort[i]);
+      if (dataSort.length < 5) {
+        for (let i = pageFilter.offset; i < dataSort.length; i++) {
+          const filtered: UsersModel[] = [];
+          filtered[i] = dataSort[i];
+        }
+        for (let i = pageFilter.offset; i < dataSort.length; i++) {
+          sortedData.push(dataSort[i]);
+        }
+      } else {
+        for (let i = pageFilter.offset; i < dataSort.length; i++) {
+          const filtered: UsersModel[] = [];
+          filtered[i] = dataSort[i];
+        }
+        for (let i = pageFilter.offset; i < pageFilter.limit; i++) {
+          sortedData.push(dataSort[i]);
+        }
       }
     } else {
       for (let i = pageFilter.offset; i < pageFilter.limit; i++) {
