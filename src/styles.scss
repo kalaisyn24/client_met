@@ -52,6 +52,9 @@ thead th {
 .mat-paginator {
   background-color: #55608f !important;
 }
+tr:hover {
+      background: #ffffff50;
+}
 th, td {
   border-bottom: none !important;
   color: #fff !important;
@@ -91,4 +94,116 @@ section {
 }
 h2, h3,h4,h1,.mat-button, .mat-icon-button, .mat-stroked-button, p {
   color: #FFF;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F500;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+  background-color: #F5F5F500;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: #1cd4cd5e;;
+}
+
+.btn-3 {
+  cursor: pointer;
+  background-color: #54608f;
+}
+.btn-3 .round {
+  background: linear-gradient(45deg, #27d2d0, #53608f,#27d2d0);
+}
+
+a {
+  text-decoration: none;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+  padding: 12px 53px 12px 23px;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: bold;
+  position: relative;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  display: inline-block;
+}
+a span {
+  position: relative;
+  z-index: 3;
+}
+a .round {
+  display: flex;
+  align-items: center;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  z-index: 2;
+}
+a .round mat-icon {
+  margin: 7px;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.txt {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.type-1 a:hover {
+  padding-left: 48px;
+  padding-right: 28px;
+}
+.type-1 a:hover .round {
+  width: calc(100% - 6px);
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+}
+.type-1 a:hover .round i {
+  left: 12%;
+}
+.buttons-container {
+  width: 100%;
+}
+.save {
+  float: left;
+}
+.close {
+  float: right;
+}
+.table-container {
+  height: 296px;
+  width: 100%;
+  display: block;
+  content: "";
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition-delay: 9999s;
+  transition-delay: 9999s;
 }

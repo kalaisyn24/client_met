@@ -17,11 +17,10 @@ table {
 }
 tr:hover {
   .action {
-    transition: 1s;
+    transition: background-color 0s, margin-left 1s ease;
     background-color: #ffffff00 !important;
     opacity: 1;
     display: block;
     margin-left: -100px;
-    border-style: 8px;
   }
 }

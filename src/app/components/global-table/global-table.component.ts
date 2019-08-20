@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
+import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {UserService} from '../service/user.service';
 import {PageDetails} from '../../../model/PageDetails';
@@ -9,7 +9,6 @@ import {MatDialog} from '@angular/material';
 import {UsersModel} from '../../../model/UsersModel';
 import {OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {CreateUserComponent} from './create-user/create-user.component';
 
 @Component({
   selector: 'app-global-table',
@@ -30,8 +29,6 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
     this.dataSource = new MatTableDataSource(this.users);
   }
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-
   openDialog(id: number): void {
     const dialogRef = this.dialog.open(DialogeditComponent, {
       width: '350px',
@@ -42,15 +39,19 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
   }
 
   createUser(): void {
-    const dialogRef = this.dialog.open(CreateUserComponent, {
+    const dialogRef = this.dialog.open(DialogeditComponent, {
       width: '350px',
-      data: {}
+      data: null
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
         this.dataSource.data.unshift(result);
+        if (this.dataSource.data.length >= 5) {
+          this.dataSource.data.pop();
+        }
         this.userService.getNewUser(result);
+        console.log(this.dataSource.data);
       }
       this.dataSource._updateChangeSubscription();
       console.log(this.dataSource.data);
@@ -74,7 +75,6 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
     this.pageFilter.offset = this.paginator.pageSize * this.paginator.pageIndex;
     this.pageFilter.limit = this.pageFilter.offset + this.paginator.pageSize;
     this.dataSource.data = this.userService.getSortedData(this.pageFilter);
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(filterValue: string) {
@@ -84,22 +84,22 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
   }
 
   sortData() {
+
     this.pageFilter = new PageDetails();
     this.pageFilter.filter = this.dataSource.filter;
     this.pageFilter.offset = this.paginator.pageIndex * this.paginator.pageSize;
     this.pageFilter.limit = this.pageFilter.offset + this.paginator.pageSize;
     this.pageFilter.sortName = this.dataSource.sort.direction;
     this.pageFilter.sortActive = this.dataSource.sort.active;
-    const sortedData = this.userService.getSortedData(this.pageFilter);
-    this.length = this.userService.getFilteredLength(this.pageFilter);
-    this.dataSource.data = sortedData;
+    setTimeout(() => {
+        const sortedData = this.userService.getSortedData(this.pageFilter);
+        this.length = this.userService.getFilteredLength(this.pageFilter);
+        this.dataSource.data = sortedData;
+      }
+      , 3000);
     this.dataSource._updateChangeSubscription();
-    console.log(this.dataSource.data);
   }
 
-  sortInfo() {
-    console.log(this.dataSource.sort.direction + ',' + this.dataSource.sort.active);
-  }
 
   setPage($event: PageEvent) {
     this.pageFilter.filter = this.dataSource.filter;
@@ -107,5 +107,14 @@ export class GlobalTableComponent implements OnInit, OnDestroy {
     this.pageFilter.limit = this.pageFilter.offset + $event.pageSize;
     const sortedData = this.userService.getSortedData(this.pageFilter);
     this.dataSource.data = sortedData;
+    console.log(this.dataSource);
+  }
+
+  data() {
+    console.log(this.dataSource.data);
+  }
+
+  change(sort: Sort) {
+    console.log(sort);
   }
 }

@@ -1,22 +1,27 @@
-<div mat-dialog-content>
+<div mat-dialog-content class="scrollbar">
   <mat-form-field>
     <input matInput [(ngModel)]="selectedUser.fioData" placeholder="Name">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.ageData"  placeholder="age">
+    <input matInput [(ngModel)]="selectedUser.ageData" type="number" placeholder="age">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.balance"  placeholder="balance">
+    <input matInput [(ngModel)]="selectedUser.balance" type="number"  placeholder="balance">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.charmData"  placeholder="charm">
+      <mat-label>Выберите характер</mat-label>
+      <mat-select [(ngModel)]="selectedUser.charmData">
+        <mat-option *ngFor="let charms of this.charmService.charms" [value]="this.charms.charm">
+          {{this.charms.charm}}
+        </mat-option>
+      </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.id" placeholder="userId">
+    <input matInput [(ngModel)]="selectedUser.id" type="number" placeholder="userId">
   </mat-form-field>
   <h2>Адресс регистрации</h2>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.registrationAddress.street" placeholder="regStreet">
+    <input matInput [(ngModel)]="selectedUser.registrationAddress.street"  placeholder="regStreet">
   </mat-form-field>
   <mat-form-field>
     <input matInput [(ngModel)]="selectedUser.registrationAddress.home" placeholder="regHome">
@@ -36,18 +41,44 @@
   </mat-form-field>
   <h2>Номера</h2>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.phone.mobile" placeholder="mobile">
+    <input matInput [(ngModel)]="selectedUser.phone.mobile" type="number" placeholder="mobile">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.phone.home" placeholder="home">
+    <input matInput [(ngModel)]="selectedUser.phone.home" type="number" placeholder="home">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.phone.work" placeholder="work">
+    <input matInput [(ngModel)]="selectedUser.phone.work" type="number" placeholder="work">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.phone.mobile2" placeholder="mobile2">
+    <input matInput [(ngModel)]="selectedUser.phone.mobile2" type="number" placeholder="mobile2">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onUpdate()">Update</button>
+    <div class="type-1">
+        <a class="btn btn-3 save" (click)="onUpdate()">
+          <span class="txt">UPDATE</span>
+          <span class="round"><mat-icon>done</mat-icon></span>
+        </a>
+    </div>
+</div>
+<div mat-dialog-actions>
+  <p *ngIf="!validation">заполните все обезательные поля *</p>
+  <div class="buttons-container">
+    <div class="type-1">
+      <div>
+        <a class="btn btn-3 save" (click)="update()">
+          <span class="txt">SAVE</span>
+          <span class="round"><mat-icon>done</mat-icon></span>
+        </a>
+      </div>
+    </div>
+    <div class="type-1">
+      <div>
+        <a class="btn btn-3 close" (click)="close()">
+          <span class="txt">Close</span>
+          <span class="round"><mat-icon>close</mat-icon></span>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>

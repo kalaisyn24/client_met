@@ -42,20 +42,18 @@ import {
 import { GlobalTableComponent } from './components/global-table/global-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {UserService} from './components/service/user.service';
+import {CharmService} from './components/service/charm.service';
 import { DialogeditComponent } from './components/global-table/dialogedit/dialogedit.component';
 import {FormsModule} from '@angular/forms';
-import { CreateUserComponent } from './components/global-table/create-user/create-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GlobalTableComponent,
     DialogeditComponent,
-    CreateUserComponent
   ],
   entryComponents: [
     DialogeditComponent,
-    CreateUserComponent
   ],
   imports: [
     FlexLayoutModule,
@@ -96,7 +94,7 @@ import { CreateUserComponent } from './components/global-table/create-user/creat
     MatTooltipModule,
     FormsModule,
   ],
-  providers: [UserService],
+  providers: [UserService, CharmService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
