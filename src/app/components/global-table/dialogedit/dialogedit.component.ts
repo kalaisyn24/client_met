@@ -33,9 +33,6 @@ export class DialogeditComponent implements OnInit {
     const updUser = this.userService.updateUsers(this.selectedUser);
     this.dialogRef.close(updUser);
   }
-  onNull(): void {
-  }
-
   update(): void {
     if (
       this.selectedUser.charmData !== ''
@@ -45,6 +42,7 @@ export class DialogeditComponent implements OnInit {
       && this.selectedUser.id !== null
     ) {
       this.dialogRef.close(this.selectedUser);
+      this.validation = false;
     } else {
       this.validation = false;
     }
@@ -74,6 +72,7 @@ export class DialogeditComponent implements OnInit {
           mobile2: null
         }
       };
+      this.validation = true;
     }
   }
 

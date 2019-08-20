@@ -1,23 +1,23 @@
 <div mat-dialog-content class="scrollbar">
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.fioData" placeholder="Name">
+    <input matInput [(ngModel)]="selectedUser.fioData" required placeholder="Name">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.ageData" type="number" placeholder="age">
+    <input matInput [(ngModel)]="selectedUser.ageData" required type="number" placeholder="age">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.balance" type="number"  placeholder="balance">
+    <input matInput [(ngModel)]="selectedUser.balance" required type="number"  placeholder="balance">
   </mat-form-field>
   <mat-form-field>
       <mat-label>Выберите характер</mat-label>
-      <mat-select [(ngModel)]="selectedUser.charmData">
+      <mat-select [(ngModel)]="selectedUser.charmData" required>
         <mat-option *ngFor="let charms of this.charmService.charms" [value]="this.charms.charm">
           {{this.charms.charm}}
         </mat-option>
       </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="selectedUser.id" type="number" placeholder="userId">
+    <input matInput [(ngModel)]="selectedUser.id" type="number" required placeholder="userId">
   </mat-form-field>
   <h2>Адресс регистрации</h2>
   <mat-form-field>
@@ -53,7 +53,7 @@
     <input matInput [(ngModel)]="selectedUser.phone.mobile2" type="number" placeholder="mobile2">
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions *ngIf="userId != null">
     <div class="type-1">
         <a class="btn btn-3 save" (click)="onUpdate()">
           <span class="txt">UPDATE</span>
@@ -61,12 +61,12 @@
         </a>
     </div>
 </div>
-<div mat-dialog-actions>
-  <p *ngIf="!validation">заполните все обезательные поля *</p>
+<div mat-dialog-actions *ngIf="userId === null">
+  <p [ngClass]="{'hidden' : validation}" class="red">заполните все обезательные поля *</p>
   <div class="buttons-container">
     <div class="type-1">
       <div>
-        <a class="btn btn-3 save" (click)="update()">
+        <a class="btn btn-3 save" type="submit" (click)="update()">
           <span class="txt">SAVE</span>
           <span class="round"><mat-icon>done</mat-icon></span>
         </a>
